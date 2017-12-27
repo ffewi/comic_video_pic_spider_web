@@ -1,0 +1,144 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}日志{% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .sw-40 {
+            width: 80px;
+        }
+        .table a{
+            text-decoration: none;
+        }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-c mt-20">
+    <div class="btn-group nav navbar-nav">
+        <span id="blogs" class="btn btn-warning radius sw-40">日志</span>
+        <span id="comments" class="btn btn-default radius sw-40">评论</span>
+        <span id="users" class="btn btn-default radius sw-40">用户</span>
+        <span id="mzt" class="btn btn-default radius sw-40">MZiTu</span>
+        <span id="mht" class="btn btn-default radius sw-40">MHuaTai</span>
+    </div>
+<!-- 错误提示消息 -->
+<div style="height: 40px" class="mt-5 mb-5" id="errorMsg">
+    </div>
+
+
+
+<table class="table table-border table-bg table-hover">
+    <!--/manage/blogs/create-->
+  <thead>
+                <tr>
+                    <th class="text-c">
+                        <a id="newBlog" href="javascript:;" class="f-l c-orange"><i class="icon Hui-iconfont Hui-iconfont-add3 f-12 "></i> 新日志</a>
+                        标题 / 摘要</th>
+                    <th >作者</th>
+                    <th >创建时间</th>
+                    <th >操作</th>
+                </tr>
+            </thead>
+
+    <tbody>
+
+        {% for blog in blogs %}
+            <tr>
+                <td>
+                    <a target="_blank" href="/blog/{{blog.id}}">{{blog.name}}</a>
+                </td>
+                <td>
+                    <span>{{blog.user_name}}</span>
+                </td>
+                <td>
+                    <span >{{blog.created_at|showtime}}</span>
+                </td>
+                <td>
+                    <a href="/manage/blogs/edit?id={{blog.id}}" ><i class="icon Hui-iconfont Hui-iconfont-edit f-16 c-666"></i></a>&nbsp;
+                    <a href="javascript:;" ><i id="{{ blog.id }}" class="icon Hui-iconfont Hui-iconfont-del2 f-16 c-999"></i></a>
+                </td>
+            </tr>
+        {% endfor%}
+    </tbody>
+
+</table>
+    {{ pagination('/?page=', page) }}
+</div>
+
+<div id="alertMsg" class="modal fade" style="position: absolute;top: 150px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">确定删除此条日志?</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void (0);">×</a>
+			</div>
+			<div id="contentMsg" class="modal-body">
+                <!--<p>确定删除此条日志？删除后不可恢复！</p>-->
+			</div>
+            <div style="height: 2px;width: inherit;background-color: beige"></div>
+			<div class="cl text-c mb-20 mt-10">
+				<button class="btn btn-primary radius" onclick="delBlog()"><i class="icon Hui-iconfont Hui-iconfont-xuanze"></i> 确定</button>
+				<button class="btn radius" data-dismiss="modal" aria-hidden="true"><i class="icon Hui-iconfont Hui-iconfont-close"></i> 关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    var blog_id = null;
+
+    $('#newBlog').on('click', function(){
+       location.assign('/auth/manage/blog/create.html')
+    });
+
+    $('span.sw-40').on('click', function () {
+       var name = $(this).attr('id');
+       location.assign('/auth/manage/'+name+'.html');
+    });
+
+    function showErrorMsg(msg) {
+        if(!msg){
+            msg = '操作成功!';
+        }
+        var content ='<div class="Huialert Huialert-success"><i class="Hui-iconfont" onclick="closeErrorMsg()"></i><span class="c-red">'+msg+'</span></div>';
+        $('#errorMsg').html(content);
+    }
+
+    function closeErrorMsg() {
+        $('#errorMsg').html('');
+    }
+
+    function delBlog() {
+        debugger;
+        if(blog_id){
+            var url = '/api/blogs/' + blog_id + '/delete';
+            $.post(url, {id:blog_id}, function(err,status){
+                if(!err.id){
+                    $("#alertMsg").modal("hide");
+                    showErrorMsg('刪除异常，请刷新后重试!!!')
+                }else{
+                   refresh();
+                }
+
+            });
+        }else {
+            $("#alertMsg").modal("hide");
+            showErrorMsg('操作异常，请刷新后重试!!!')
+        }
+
+    }
+
+    $('i.Hui-iconfont-del2').on('click', function(){
+        blog_id = $(this).attr('id');
+        var tr = $(this).parent().parent().parent();
+        var content = $($(tr.children()[0]).children()[0]).text();
+//        var html_content = '<p>确定删除此条日志？删除后不可恢复</p>'
+        $('#contentMsg.modal-body').html('<p>'+content+'</p>');
+        $("#alertMsg").modal("show");
+    });
+</script>
+{% endblock %}

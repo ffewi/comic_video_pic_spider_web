@@ -1,0 +1,166 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}{{ blog.name }}{% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .panel-self {
+        border-color: #ddd
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<!-- 左侧占位 1格 小尺寸时隐藏-->
+<div class="col-xs-1 hidden-xs"></div>
+<div class="col-md-8 col-xs-12" style="height: 100% ;">
+<div class="cl">
+    <h1>{{ blog.name }}</h1>
+    <p class="c-999 f-12 mt-10">发表于{{ blog.created_at|datetime }}</p>
+    <p>{{ blog.html_content|safe }}</p>
+    <div class="mt-10" style="height: 5px;background-color: red"> </div>
+
+    {% if __user__ %}
+    <h3 class="c-999">发表评论</h3>
+
+    <div>
+        <header>
+            <p><img class="avatar size-M radius" src="{{ __user__.image }}"><span class="c-danger f-12">  {{ __user__.name }}</span>
+            </p>
+        </header>
+        <div>
+            <form id="form-comment" onsubmit="return false;">
+                <div id="tipMsg"></div>
+                <div>
+                    <textarea class="radius" maxlength="140" rows="6" placeholder="说点什么吧--最多140字" style="width:100%;resize:none;"></textarea>
+                </div>
+                <div>
+                    <button id="submitId" type="submit" class="btn btn-primary radius">发表评论</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-10" style="height: 5px;background-color: orange"> </div>
+    {% endif %}
+
+    <h3 class="c-orange">最新评论</h3>
+
+
+    <ul class="commentList mb-20">
+        {% if __user__ %}
+        <a href="javascript:void (0)">预备增加@某人功能-敬请期待...</a>
+        {% for comment in comments %}
+            {% if comment.user_id==blog.user_id %}
+                <li class="item cl comment-flip">
+
+            {% else %}
+                <li class="item cl">
+            {% endif %}
+                <a href="javascript:void (0)"><i class="avatar size-L radius"><img alt=""
+                                                                                   src="{{ comment.user_image }}"></i></a>
+                <div class="comment-main">
+                    <header class="comment-header">
+                        <div class="comment-meta">
+                            <a class="comment-author" href="javascript:void (0)">{{ comment.user_name }}
+                            {% if comment.user_id==blog.user_id %}(作者){% endif %}</a>
+                            {% if comment.user_id==blog.user_id %}
+                                回复于
+                            {% else %}
+                                评论于
+                            {% endif %}
+
+                            <time title="{{ comment.created_at|showtime }}" datetime="{{ comment.created_at|showtime }}">{{
+                                comment.created_at|datetime }}
+                            </time>
+                        </div>
+                    </header>
+                    <div class="comment-body">
+                        {{ comment.html_content|safe }}
+                    </div>
+                </div>
+                </li>
+        {% else %}
+            <p>还没有人评论...</p>
+        {% endfor %}
+
+
+        {% else %}
+            <p>登录后查看评论</p>
+        {% endif %}
+    </ul>
+</div>
+</div>
+
+
+<div class="col-xs-2 hidden-xs">
+<div class="col-md-2 visible-lg" style="position: fixed">
+    <div class="mt-20">
+        <div class="text-c">
+            <img class="avatar size-XL radius" src="{{ blog.user_image }}">
+            <!--<img class="radius" width="120" height="120" src="{{ blog.user_image }}">-->
+            <h5>{{ blog.user_name }}</h5>
+        </div>
+    </div>
+    <div class="panel panel-self mt-20 radius">
+
+        <!--<div class="panel-header">-->
+            <!--特别推荐-->
+        <!--</div>-->
+
+        <div class="panel-body f-20">
+            <nav class="nav navbar-nav f-12">
+                <p>姓名：李**</p>
+                <p>职业：IT民工</p>
+                <p>性别：保密</p>
+                <p>爱好：撸***码</p>
+            </nav>
+        </div>
+    </div>
+
+</div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+
+    var comment_url = '/api/blogs/{{ blog.id }}/comments';
+
+    $(function () {
+        var $form = $('#form-comment');
+        $('#submitId').on('click', function () {
+
+            var content = $form.find('textarea').val().trim();
+            if (!content) {
+                $('#tipMsg').html('<p class="c-red">温馨提示：输入一点信息吧!!!</p>')
+                return false;
+            } else {
+                $.post(comment_url, {
+                    content: content
+                }, function (err, result) {
+                    if (err && err.message) {
+                        $('#tipMsg').html('<p class="c-red">温馨提示：' + err.message + '!!!</p>')
+                    } else {
+                        $form.find('textarea').val('');
+                        $.Huimodalalert('评论消息发表成功!稍后刷新可查看',3000);
+//                        var t = new Date().getTime(),
+//                            url = location.pathname;
+//                        if (location.search) {
+//                            url = url + location.search + '&t=' + t;
+//                        }
+//                        else {
+//                            url = url + '?t=' + t;
+//                        }
+//                        location.assign(url);
+                    }
+                })
+            }
+
+
+        });
+    });
+</script>
+{% endblock %}

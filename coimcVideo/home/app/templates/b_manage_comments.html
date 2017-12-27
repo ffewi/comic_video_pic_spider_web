@@ -1,0 +1,135 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}评论{% endblock %}
+
+
+{% block css %}
+<style type="text/css">
+    .sw-40 {
+            width: 80px;
+        }
+        .table a{
+            text-decoration: none;
+        }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-c mt-20">
+    <div class="btn-group">
+        <span id="blogs" class="btn btn-default radius sw-40">日志</span>
+        <span id="comments" class="btn btn-warning radius sw-40">评论</span>
+        <span id="users" class="btn btn-default radius sw-40">用户</span>
+        <span id="mzt" class="btn btn-default radius sw-40">MZiTu</span>
+        <span id="mht" class="btn btn-default radius sw-40">MHuaTai</span>
+    </div>
+    <!-- 错误提示消息 -->
+    <div style="height: 40px" class="mt-5 mb-5" id="errorMsg">
+    </div>
+
+
+
+    <table class="table table-border table-bg table-hover">
+        <thead>
+        <tr>
+            <th>作者</th>
+            <th>内容</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for comment in comments %}
+        <tr>
+            <td>
+                <span>{{comment.user_name}}</span>
+            </td>
+            <td>
+                <span>{{comment.content}}</span>
+            </td>
+            <td>
+                <span>{{comment.created_at|datetime}}</span>
+            </td>
+            <td>
+                <a href="javascript: ;" title="删除此条评论" ><i class="icon Hui-iconfont Hui-iconfont-del2 f-16 c-999" id="{{ comment.id }}"></i></a>
+            </td>
+        </tr>
+        {% endfor%}
+        </tbody>
+
+    </table>
+    {{ pagination('/?page=', page) }}
+</div>
+
+<div id="alertMsg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">确定删除此条评论消息</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void (0);">×</a>
+			</div>
+			<div id="contentMsg" class="modal-body">
+			</div>
+			<div class="modal-footer ">
+				<button class="btn btn-primary radius" onclick="delComment()">确定</button>
+				<button class="btn radius" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    var comments_id = null;
+
+    function showErrorMsg(msg) {
+        if(!msg){
+            msg = '操作成功!';
+        }
+        var content ='<div class="Huialert Huialert-success"><i class="Hui-iconfont" onclick="closeErrorMsg()"></i><span class="c-red">'+msg+'</span></div>';
+        $('#errorMsg').html(content);
+    }
+
+    function closeErrorMsg() {
+        $('#errorMsg').html('');
+    }
+
+    function delComment() {
+        if(comments_id){
+            $.post('/api/comments/'+comments_id+'/delete','',function(err,r){
+                debugger;
+                if(!err.id){
+                    $("#alertMsg").modal("hide");
+                    showErrorMsg('刪除异常，请刷新后重试!!!')
+                }else{
+                   refresh();
+                }
+
+            });
+        }else {
+            $("#alertMsg").modal("hide");
+            showErrorMsg('操作异常，请刷新后重试!!!')
+        }
+
+    }
+
+    $('i.Hui-iconfont-del2').on('click', function(){
+        comments_id = $(this).attr('id');
+        var tr = $(this).parent().parent().parent();
+        var content = $($(tr.children()[1]).children()[0]).text();
+        $('#contentMsg.modal-body').html('<pre>'+content+'</pre>')
+        $("#alertMsg").modal("show");
+//        comments_id = null;
+    });
+
+    $('span.sw-40').on('click', function () {
+       var name = $(this).attr('id');
+       location.assign('/auth/manage/'+name+'.html');
+    });
+
+</script>
+{% endblock %}

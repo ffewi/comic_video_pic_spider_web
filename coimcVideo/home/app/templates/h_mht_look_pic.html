@@ -1,0 +1,179 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}MHuaTai{% endblock %}
+
+
+{% block css %}
+<style type="text/css">
+    .travel-pic {
+        width: 1020px;
+    }
+
+    .travel-pic li {
+        display: inline;
+        float: left;
+        margin-right: 20px;
+        overflow: hidden;
+        width: 235px;
+    }
+
+    .travel-pic img {
+        border: 0;
+        width: 240px;
+        height: 300px;
+        vertical-align: top;
+        display: block;
+        transition: all .3s ease;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -o-transition: all .3s ease;
+    }
+
+    .travel-pic a:hover img {
+        transform: scale(1.04, 1.04);
+        -ms-transform: scale(1.04, 1.04);
+        -webkit-transform: scale(1.04, 1.04);
+    }
+
+    .plot-a a {
+        text-decoration: none;
+    }
+
+    .d-wh {
+        width: 140px;
+        height: 140px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- 章节图片信息-->
+    <div class="col-md-9 mt-15" id="section_area">
+        <div class="col-md-12 cl">
+            <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>当前位置： <a class="maincolor link-url" data-url="/mht/comic/{{comic_info.index_id}}/info.html">{{comic_info.name}}</a><span
+                    class="c-666 en">&gt;</span>{{section_info.title}}</nav>
+        </div>
+        {% if comic_pictures %}
+        <div id="cycle_pic" class="col-md-12 cl">
+            <img src="{{comic_pictures[0].pic_url}}"></div>
+        {% endif %}
+        <div id="page_action" class="cl mb-10" style="display: none">
+            <div class="col-md-6 col-md-offset-3 pt-10">
+            <a data-url="/mht/comic/{{page.pre}}/look.html" class="link-url btn btn-warning radius f-l {% if not page.pre %} disabled{% endif %}">上一章</a>
+            <a data-url="/mht/comic/{{page.next}}/look.html" class="link-url btn btn-warning radius f-r {% if not page.next %} disabled{% endif %}">下一章</a></div>
+        </div>
+    </div>
+    <!-- 章节信息 END-->
+    <!-- 漫画信息 -->
+    <div class="col-md-3 radius" id="comic_area">
+        <div class="col-md-12 mt-10" style="position: fixed;top:50px">
+            <div class="comic_img" style="margin:0 auto; overflow:hidden">
+                <ul class="travel-pic">
+                    <li><a>
+                        <div class="maskWraper radius">
+                            <img name="{{comic_info.id}}" src="{{comic_info.pic_url}}">
+
+                            <div class="maskBar text-c" style="width: inherit">{{comic_info.pic_title}}</div>
+                        </div>
+                    </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="comic_info mt-5" style="width: 240px;height: 65px;">
+                <div style="min-height: 40px">
+                    <div class="f-l">
+                        <h5 class="plot-a comic-name"><a class="link-url" data-url="/mht/comic/{{comic_info.index_id}}/info.html">《{{comic_info.name}}》</a></h5>
+
+                    </div>
+
+                    <div class="f-r">
+                        <div class="c-orange pt-10 pr-20 plot-a" data-trigger="hover" data-container="body"
+                             data-toggle="plot" data-placement="auto right" data-content="剧情：{{comic_info.plot}}">
+                            <a>简介</a></div>
+                    </div>
+                </div>
+                <div class="pt-5" style="min-height: 100px;border-top: solid 1px #eee;border-bottom: dashed 1px orange">
+                    <div class="f-l">
+                        <div class="c-999">类型：{{comic_info.type}}</div>
+                        <div class="c-999">状态：{{comic_info.status}}</div>
+                        <div class="c-999">
+                            分享： <i class="icon Hui-iconfont Hui-iconfont-yiguanzhu c-red"></i>
+                            {{comic_info.share_times}}
+                            <span class="c-orange f-r">
+                            <a class="ml-10" style="text-decoration: none" title="更新时间:{{comic_info.up_time|showtime}}"><i
+                                    class="icon Hui-iconfont Hui-iconfont-shijian"></i> {{comic_info.up_time|datetime}}</a></span>
+                        </div>
+                        <div class="c-999">作者： <i class="icon Hui-iconfont Hui-iconfont-banzhu c-orange"></i>
+                            {{comic_info.author}}
+                        </div>
+                        <div class="c-red"><span class="c-999">热度：</span>
+                            {{ hotStar(comic_info.share_times) }}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- 漫画信息 END-->
+    <div id="all_pic" hidden="hidden" value="{% for cp in comic_pictures %}{{cp.pic_url}},{% endfor %}"></div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    var pictures = [];
+    var pic_len = 0;
+    var index = 1;
+    $('.maskWraper').Huihover();
+    $("[data-toggle='plot']").popover();
+    $('.waitLoad').lazyload();
+    //    各种跳转
+    $('a.link-url').on('click', function () {
+       var data_url = $(this).attr('data-url');
+       if(data_url){
+           location.assign(data_url);
+       }
+    });
+
+    $(function () {
+
+        pictures = $('#all_pic').attr('value').split(',');
+
+        pictures = pictures.slice(0, pictures.length-1);
+        pic_len = pictures.length - 1;
+        $(window).scroll(function() {
+            var scrollTop = $(this).scrollTop();
+            var scrollHeight = $(document).height();
+            var windowHeight = $(this).height();
+            if (scrollTop + windowHeight == scrollHeight) {
+                // 此处是滚动条到底部时候触发的事件，在这里写要加载的数据，或者是拉动滚动条的操作
+    //            console.log('此处预留更多精彩')
+                if(index <= pic_len){
+                    var ele = document.createElement('img');
+
+                    ele.setAttribute('src', pictures[index]);
+                    $('#cycle_pic').append(ele);
+                    index += 1;
+                }else if (index == (pic_len + 1)){
+                    var ele = document.createElement('div');
+                    ele.setAttribute('class', 'col-md-12 text-c');
+                    ele.innerHTML='<span>本章节内容阅读完毕！</span>';
+                    $('#cycle_pic').append(ele);
+                    $('#page_action').show();
+                    index = 999;
+                }
+
+            }
+        });
+    });
+
+</script>
+{% endblock %}

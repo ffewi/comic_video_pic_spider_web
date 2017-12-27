@@ -1,0 +1,88 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}日志{% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .panel-self {
+        border-color: #ddd
+    }
+
+    .panel-self > .panel-header {
+        border-color: #333;
+        background-color: #333;
+        color: #fff
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- 左侧占位 1格 小尺寸时隐藏-->
+<div class="col-xs-1 hidden-xs"></div>
+<!-- 日志主体-->
+<div class="col-md-8 col-xs-12" style="height: 100% ;">
+    <div>
+        {% for blog in blogs %}
+        <!--<article class="uk-article">-->
+        <div class="panel panel-self mt-5 radius">
+            <div class="panel-header c-white"><a style="text-decoration: none;" href="/blog/{{ blog.id }}"><i
+                    class="icon Hui-iconfont Hui-iconfont-tags"></i> {{ blog.name }}</a></div>
+            <div class="panel-body"><p class="c-999 f-12">发表于{{ blog.created_at|datetime }}
+                <p>
+
+                <p>{{ blog.summary }}</p>
+                <p class="c-orange"><a href="/blog/{{ blog.id }}"><i class="icon Hui-iconfont Hui-iconfont-yanjing"></i>
+                    继续阅读</a></p></div>
+        </div>
+
+        {% endfor %}
+    </div>
+    {{ pagination('/?page=', page) }}
+</div>
+<!-- 日志主体 END-->
+
+<!-- 右侧显示 -->
+<div class="col-xs-2 hidden-xs">
+    <div class="panel panel-self mt-5 radius visible-lg">
+        <div class="panel-header">
+            特别推荐
+        </div>
+
+        <div class="panel-body f-20">
+            <nav class="nav navbar-nav">
+                <ul class="cl">
+                    <li><i class="icon Hui-iconfont Hui-iconfont-yuedu "></i> <a target="_blank" href="">编程习惯</a></li>
+
+                    <li><i class="icon Hui-iconfont Hui-iconfont-yuedu "></i> <a target="_blank" href="">读书爱好</a></li>
+                    <li><i class="icon Hui-iconfont Hui-iconfont-yuedu "></i> <a target="_blank" href="">Python教程</a>
+                    </li>
+                    <li><i class="icon Hui-iconfont Hui-iconfont-yuedu "></i> <a target="_blank" href="">Git教程</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="panel panel-self mt-5 radius visible-lg">
+        <div class="panel-header">
+            流动图片
+        </div>
+
+        <div class="panel-body f-20">
+            <nav class="nav navbar-nav">
+                <ul class="cl">
+                    <li><i class="icon Hui-iconfont Hui-iconfont-yuedu "></i> <a target="_blank" href="">个人介绍</a></li>
+
+                    <li><i class="icon Hui-iconfont Hui-iconfont-yuedu "></i> <a target="_blank" href="">好东西</a></li>
+                    <li><i class="icon Hui-iconfont Hui-iconfont-yuedu "></i> <a target="_blank" href="">瞧一瞧</a>
+                    </li>
+                    <li><i class="icon Hui-iconfont Hui-iconfont-yuedu "></i> <a target="_blank" href="">看一看</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- 右侧显示 END-->
+
+
+{% endblock %}
+

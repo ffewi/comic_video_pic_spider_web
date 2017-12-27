@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<!--
+{% macro pagination(url, page) %}
+<div class="container-fluid text-c" style="width:inherit">
+
+    <div class="mb-5 mt-5">
+
+        {% if page.has_previous %}
+        <a href="{{ page.page_url }}{{ page.previous_index }}" class="btn btn-warning-outline radius">上一页 </a>
+        {% else %}
+        <a href="#" class="btn btn-warning-outline radius disabled">上一页 </a>
+        {% endif %}
+
+
+        {% if page.page_index <= 3 %}
+            {% for i in range(1, page.page_index+1) %}
+                {% if i == page.page_index %}
+                    <a href="{{ page.page_url }}{{ i }}" class="btn btn-warning-outline radius active">{{ i }}</a>
+                {% else %}
+                    <a href="{{ page.page_url }}{{ i }}" class="btn btn-warning-outline radius">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page.page_index < page.page_count - 1 %}
+                <span class="btn btn-warning-outline radius">…</span>
+                <a href="{{ page.page_url }}{{ page.page_count }}" class="btn btn-warning-outline radius">{{ page.page_count }}</a>
+
+            {% elif page.page_index == page.page_count - 1 %}
+                <a href="{{ page.page_url }}{{ page.page_count }}" class="btn btn-warning-outline radius">{{ page.page_count }}</a>
+            {% endif %}
+
+        {% elif page.page_index > 3 %}
+            <a href="{{ page.page_url }}1" class="btn btn-warning-outline radius">1</a>
+            <a href="{{ page.page_url }}2" class="btn btn-warning-outline radius">2</a>
+            <span class="btn btn-warning-outline radius">…</span>
+            <a href="{{ page.page_url}}{{ page.page_index }}" class="btn btn-warning-outline radius active">{{ page.page_index }}</a>
+
+            {% if page.page_index < page.page_count - 1 %}
+                <span class="btn btn-warning-outline radius">…</span>
+                <a href="{{ page.page_url }}{{ page.page_count }}" class="btn btn-warning-outline radius">{{ page.page_count }}</a>
+
+            {% elif page.page_index == page.page_count - 1 %}
+                <a href="{{ page.page_url }}{{ page.page_count }}" class="btn btn-warning-outline radius">{{ page.page_count }}</a>
+            {% endif %}
+
+        {% endif %}
+        {% if page.has_next %}
+            <a href="{{ page.page_url }}{{ page.next_index }}" class="btn btn-warning-outline radius">下一页 </a>
+        {% else %}
+            <a href="#" class="btn btn-warning-outline radius disabled">下一页 </a>
+        {% endif %}
+    </div>
+</div>
+
+{% endmacro %}
+-->
+<!-- 星星-->
+
+<!--{% macro hotStar(times) %}
+
+                        {% if times > 1000 %}
+                            {% for i in [0,1,2,3,4] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+
+                        {% elif times > 900 %}
+                            {% for i in [0,1,2,3] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [0] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+
+                        {% elif times > 800 %}
+                            {% for i in [0,1,2,3] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+                            {% for i in [0] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-o"></i>
+                            {% endfor %}
+                        {% elif times > 700 %}
+                            {% for i in [0,1,2] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [0] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+                            {% for i in [0] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-o"></i>
+                            {% endfor %}
+                        {% elif times > 600 %}
+                            {% for i in [0,1,2] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+                            {% for i in [0,1] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-o"></i>
+                            {% endfor %}
+                        {% elif times > 400 %}
+                            {% for i in [0,1] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [0] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+                            {% for i in [0,1] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-o"></i>
+                            {% endfor %}
+                        {% elif times > 300 %}
+                            {% for i in [0,1] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+                            {% for i in [0,1,2] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-o"></i>
+                            {% endfor %}
+                        {% elif times > 200 %}
+                            {% for i in [0] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [0] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+                            {% for i in [0,1,2] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-o"></i>
+                            {% endfor %}
+                        {% elif times > 100 %}
+                            {% for i in [0] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+                            {% for i in [0,1,2,3] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-o"></i>
+                            {% endfor %}
+                        {% elif times > 50 %}
+                            {% for i in [] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star"></i>
+                            {% endfor %}
+                            {% for i in [0] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-half"></i>
+                            {% endfor %}
+                            {% for i in [0,1,2,3] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-o"></i>
+                            {% endfor %}
+                        {% else %}
+
+                            {% for i in [0,1,2,3,4] %}
+                                <i class="icon Hui-iconfont Hui-iconfont-star-o"></i>
+                            {% endfor %}
+
+                        {% endif%}
+
+
+{% endmacro %}-->
+<!-- 星星END-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- block meta  -->
+    {% block meta %}{% endblock %}
+    <!-- block meta end -->
+    <title>{% block title %} ? {% endblock %}</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <!-- 层叠样式表 -->
+    <link rel="stylesheet" type="text/css" href="/static/ui/css/H-ui.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="./static/h-ui/css/H-ui.css">-->
+    <!-- <link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css"> -->
+    <!-- 图标 -->
+
+    <link rel="stylesheet" type="text/css" href="/static/ui/fonts/iconfont.css">
+    <!-- <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.min.css"> -->
+
+
+    <style type="text/css">
+        html {
+            display: block;
+        }
+
+    </style>
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body ontouchstart>
+<div class="sideBox">
+    <ul id="minTab" class="nav navbar-nav pt-20">
+        <li><a name="index" href="javascript:;">首页</a></li>
+        <li><a name="notes" href="javascript:;">日志</a></li>
+        <li><a name="mZiTu" href="javascript:;">Mzitu</a></li>
+        <li><a name="manHuaTai" href="javascript:;">MHuaTai</a></li>
+        <li><a name="me" href="javascript:;">关于我</a></li>
+        <li><a name="login" href="javascript:;">登陆 · 注册</a></li>
+    </ul>
+</div>
+<div class="containBox">
+    <div class="containBox-bg"></div>
+
+    <!-- Header -->
+    <header class="navbar-wrapper">
+        <div class="navbar navbar-black">
+            <div class="container-fluid cl"><a class="logo navbar-logo hidden-xs" href="javascript:void(0)">初见</a>
+                <a class="logo navbar-logo-m visible-xs" href="javascript:void(0)">ffewi.com</a> <span
+                        class="logo navbar-slogan hidden-xs">简单 · 便捷 · 适合个人练习</span> <a aria-hidden="false"
+                                                                                        class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle"
+                                                                                        href="javascript:;"></a>
+                <nav id="Hui-nav" class="nav navbar-nav">
+                    <ul id="commonTab" class="cl">
+                        <li>
+                            <a name="index" href="javascript:;">首页</a>
+                        </li>
+                        <li>
+                            <a name="notes" href="javascript:;">
+                                日志</a></li>
+                        <li>
+                            <a name="mZiTu" href="javascript:;">
+                                Mzitu</a></li>
+                        <li>
+                            <a name="manHuaTai" href="javascript:;">
+                                MHuaTai</a></li>
+                        <li>
+                            <a name="me" href="javascript:;">
+                                关于我</a></li>
+
+                        {% if __user__ %}
+                        <li class="f-r dropDown dropDown_hover">
+                            <a href="javascript:void(0)"><img class="avatar size-M radius" src="{{ __user__.image }}">
+                                <span class="f-12">&nbsp;&nbsp;{{ __user__.name }}</span></a>
+                            <ul class="dropDown-menu menu radius box-shadow">
+                                {% if __user__.admin %}
+                                <li class="radius"><a href="/auth/manager.html"><span
+                                        class="icon  Hui-iconfont Hui-iconfont-manage"></span>&nbsp;&nbsp;&nbsp;管理</a>
+                                </li>
+                                {% endif %}
+                                <li class="radius"><a href="/signout"><span
+                                        class="icon  Hui-iconfont Hui-iconfont-suoding"></span>&nbsp;&nbsp;&nbsp;登出</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="f-r ">
+                            <a href="javaScript:;" onClick="modaldemo()"> 登陆 · 注册</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- End Header -->
+    <!-- 内容区域 -->
+
+    <!-- 内容区域结束 -->
+    <!-- -->
+    <div class="container" style="min-height: 600px ;overflow: auto">
+        <!---->
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</div>
+
+<div style="height: 20px;background-color: #333;"></div>
+<footer class="footer mt-10" style="background-color: #333;">
+    <div class="container-fluid">
+        <nav><span>本站资源</span></nav>
+        <nav><a href="javascript:void(0)" target="_blank">廖-Python@Tech</a> <span class="pipe">|</span> <a
+                href="javascript:void(0)" target="_blank">MZiTu</a> <span
+                class="pipe">|</span> <a href="javascript:void(0)" target="_blank">MHuaTai</a></nav>
+        <p>Copyright &copy;2017 ffewi.com All Rights Reserved. <br>
+            <a href="javascript:void(0)" target="_blank" rel="nofollow">托管于阿里云</a><br>
+        </p>
+    </div>
+</footer>
+
+<a href="javascript:void(0)" class="tools-right toTop icon Hui-iconfont" title='' alt='感谢支持'
+   style="bottom: 110px; font-size:36px; color:green;"
+   data-container="body" data-toggle="popover" data-placement="left" data-html="true"
+   data-trigger="hover focus"
+   data-content="<img style='width: 140px;height: 140px' src='/static/ui/img/myInfo.png' alt='我的微信' class='radius'>">&#xe694;
+</a>
+
+<!-- 登录框-->
+<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title text-c">欢迎登录</h3>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0)">×</a>
+            </div>
+            <div class="modal-body text-c">
+                <p><i class="icon Hui-iconfont Hui-iconfont-user-zhanzhang f-26"></i></p>
+                <p><span id="errorMsg" class="c-red"></span></p>
+                <p class="mt-10"><i class="icon Hui-iconfont Hui-iconfont-email f-20 mr-10"></i><input id="email"
+                                                                                                       type="text"
+                                                                                                       placeholder="邮箱"
+                                                                                                       class="input-text radius size-M "
+                                                                                                       style="width: 200px">
+                </p>
+                <p class="mt-20"><i class="icon Hui-iconfont Hui-iconfont-suoding f-20 mr-10"></i><input id="password"
+                                                                                                         type="password"
+                                                                                                         placeholder="密码"
+                                                                                                         class="input-text radius size-M"
+                                                                                                         style="width: 200px">
+                </p>
+            </div>
+            <div class="pb-30 text-c">
+                <button id="login" class="btn btn-primary radius" type="submit">确定</button>
+                <button class="btn radius" data-dismiss="modal" aria-hidden="true">取消</button>
+                <br>
+                <p class="c-orange mt-10"><a href="/register" class="">没有用户?去注册</a></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 登陆框结束-->
+<!-- 各种js 注意引入顺序...-->
+<script type="text/javascript" src="/static/ui/js/jquery.js"></script>
+<script type="text/javascript" src="/static/ui/js/H-ui.js"></script>
+<script type="text/javascript" src="/static/ui/js/sha1.min.js"></script>
+<!-- <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script> -->
+<!-- <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> -->
+<script type="text/javascript">
+    $('#login').on('click', function () {
+        var email = $('#email').val().trim().toLowerCase();
+        var password = $('#password').val();
+        if (password) {
+            password = CryptoJS.SHA1(email + ':' + password).toString()
+        }
+        var data = {
+            email: email,
+            passwd: password
+        }
+        $.post('/api/authenticate', data, function (err, result) {
+            if (result == 'success' && err.id) {
+
+                $('#modal-demo').modal('hide');
+                if(location.pathname.indexOf('/register') != -1){
+                    location.assign(document.referrer)
+                }else{
+                    location.assign(location.pathname + location.search);
+                }
+
+            } else {
+                $('#errorMsg').text('账户不存在|密码错误');
+            }
+        });
+    })
+
+    $(function () {
+        // body...
+        $.Huitotop();
+
+
+        var _bodyHeight = $(window).height();
+        var _doch = $(document).height();
+        //设置 banner 页。。
+        // $(".containBox").height(_bodyHeight);
+        /*左右滑动菜单*/
+        $(".JS-nav-toggle").click(function () {
+            $("body").addClass('sideBox-open');
+            $(".containBox-bg").height(_bodyHeight).show();
+        });
+        $(".containBox-bg").click(function () {
+            $(this).hide();
+            $("body").removeClass('sideBox-open');
+        });
+
+    }); // end $(fun);
+    function modaldemo() {
+        $("#modal-demo").modal("show");
+    }
+
+    function refresh() {
+        var t = new Date().getTime();
+        var url = location.pathname;
+        if (!location.search) {
+            url = url + '?t=' + t;
+        } else {
+            url = url + location.search + '&t=' + t;
+        }
+            location.assign(url);
+    }
+
+    //迷你导航
+    $('#minTab>li>a').on('click', function () {
+        var name = $(this).attr('name');
+        if(name && name != 'login'){
+            location.assign('/'+name+'.html');
+        }else if (name && name == 'login'){
+            modaldemo();
+        }
+    });
+    //正常导航
+    $('#commonTab>li>a').on('click', function () {
+        var name = $(this).attr('name');
+        if(name){
+            location.assign('/'+name+'.html');
+        }
+    });
+</script>
+
+{% block js %}
+{% endblock %}
+</body>
+
+</html>

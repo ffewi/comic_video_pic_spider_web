@@ -1,0 +1,111 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}日志编辑{% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .sw-40 {
+            width: 80px;
+        }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-c mt-20">
+    <div class="btn-group nav navbar-nav">
+        <span id="blogs" class="btn btn-warning radius sw-40">日志</span>
+        <span id="comments" class="btn btn-default radius sw-40">评论</span>
+        <span id="users" class="btn btn-default radius sw-40">用户</span>
+        <span id="mzt" class="btn btn-default radius sw-40">MZiTu</span>
+        <span id="mht" class="btn btn-default radius sw-40">MHuaTai</span>
+    </div>
+<!-- 错误提示消息 -->
+<div style="height: 40px" class="mt-5 mb-5" id="errorMsg">
+    </div>
+
+    <!-- 编辑区域-->
+    <div class="container-fluid">
+        <div class="cl">
+            <label class="col-md-1 text-r">标题:</label>
+            <div class="col-md-11 "> <input id="title_e" class="input-text radius size-M" style="width: inherit" type="text" placeholder="标题"></div>
+        </div>
+        <div class="cl mt-20">
+            <label class="col-md-1 text-r">摘要:</label>
+            <div class="col-md-11"> <textarea id="summary_e" class="radius" style="width: inherit;resize: none;" rows="4" placeholder="摘要"></textarea></div>
+        </div>
+        <div class="cl mt-20">
+            <label class="col-md-1 text-r">内容:</label>
+            <div class="col-md-11 "> <textarea id="content_e" class="radius" style="width: inherit;resize: none;" rows="16" placeholder="内容...支持markdown"></textarea></div>
+        </div>
+        <div class="cl mt-10">
+            <a href="javascript:;" class="btn btn-primary radius" onclick="commit()" ><i class="icon Hui-iconfont Hui-iconfont-xuanze"></i> 发布</a>
+            <a href="javascript:;" class="btn btn-default radius" onclick="backBlog()" ><i class="icon Hui-iconfont Hui-iconfont-close"></i> 取消</a>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+
+<script type="text/javascript">
+    var action = '{{ action }}';
+    var ID = '{{ id }}';
+
+    $(function () {
+       if(ID){
+           $.get(action + '/' +ID, function (err, msg) {
+               if(msg && msg =='success'){
+                   $('#title_e').val(err.name);
+                   $('#summary_e').val(err.summary);
+                   $('#content_e').val(err.content);
+               }else {
+                   showErrorMsg('网络异常!!!   '+ err.message || err)
+               }
+           });
+       }
+
+    });
+
+
+
+    $('span.sw-40').on('click', function () {
+       var name = $(this).attr('id');
+       location.assign('/auth/manage/'+name+'.html');
+    });
+
+    function commit() {
+        var title = $('#title_e').val();
+        var summary = $('#summary_e').val();
+        var content = $('#content_e').val();
+        if(!title){
+            $.Huimodalalert('请填写一个完整的标题！',2000);
+            return;
+        }
+        if(!content) {
+            $.Huimodalalert('小坏蛋，你是不是忘了写内容吖！',2000);
+            return;
+        }
+        var data = {
+            name:title,
+            summary:summary,
+            content:content
+        }
+        $.post(action,data,function (obj, msg) {
+            if(msg && msg == 'success'){
+                location.assign('/auth/manage/blogs.html');
+            }else {
+                $.Huimodalalert(obj,10000);
+            }
+
+        })
+    }
+
+    function backBlog() {
+        location.assign('/auth/manage/blogs.html')
+    }
+</script>
+{% endblock %}

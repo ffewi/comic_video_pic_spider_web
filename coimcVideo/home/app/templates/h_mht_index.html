@@ -1,0 +1,95 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}MHuaTai{% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .travel-pic{ width:1020px;}
+    .travel-pic li{display: inline;float: left;margin-right: 20px;overflow: hidden;width: 235px;}
+
+    .travel-pic img{border:0; width:240px; height:300px;vertical-align:top;display:block;transition: all .3s ease;-webkit-transition: all .3s ease;-moz-transition: all .3s ease;-ms-transition: all .3s ease;-o-transition: all .3s ease;}
+    .travel-pic a:hover img{transform:scale(1.04,1.04);-ms-transform:scale(1.04,1.04); -webkit-transform:scale(1.04,1.04);}
+
+    .plot-a a{
+        text-decoration: none;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    {%  for comic in comic_index %}
+    <div class="col-md-3 radius mt-10">
+        <div class="comic_img" style="margin:0 auto; overflow:hidden">
+            <ul class="travel-pic">
+                <li><a>
+                    <div class="maskWraper radius">
+                        <img name="{{comic.id}}" class="waitLoad" src="" data-original="{{comic.pic}}">
+                        <!--<img src="{{comic.pic}}">-->
+                        <div class="maskBar text-c" style="width: inherit">{{comic.commons}}</div>
+                    </div>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="comic_info mt-5" style="width: 240px;height: 65px;">
+            <h5 class="plot-a comic-name"><a name="{{comic.id}}">《{{comic.name}}》</a></h5>
+            <div style="border-top: solid 1px #eee">
+                <div class="f-l" >
+                    <div class="c-999">类型：{{comic.type}}</div>
+                    <div class="c-999">状态：{{comic.status}}</div>
+                </div>
+                <div class="f-r">
+                    <div class="c-orange pt-10 pr-20 plot-a" data-trigger="hover" data-container="body" data-toggle="plot" data-placement="auto top" data-content="剧情：{{comic.plot}}"><a>简介</a></div>
+                </div>
+            </div>
+            <!--<div>剧情：{{comic.plot}}</div>-->
+        </div>
+
+    </div>
+
+
+    {% endfor %}
+    <div class="col-md-12">
+    {{ pagination('/?page=', page) }}</div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    $('.maskWraper').Huihover();
+
+    $(function () {
+        $("[data-toggle='plot']").popover();
+        $('.waitLoad').lazyload();
+        $('.comic-name>a').on('click', function () {
+            toComicInfo($(this).attr('name'));
+        });
+        $('.maskWraper>img').on('click', function () {
+           toComicInfo($(this).attr('name'));
+        });
+
+//        $(window).scroll(function() {
+//            var scrollTop = $(this).scrollTop();
+//            var scrollHeight = $(document).height();
+//            var windowHeight = $(this).height();
+//            if (scrollTop + windowHeight == scrollHeight) {
+//                // 此处是滚动条到底部时候触发的事件，在这里写要加载的数据，或者是拉动滚动条的操作
+//                console.log('此处预留更多精彩')
+//            }
+//        });
+
+    });
+
+    function toComicInfo(id) {
+        if(id){
+            location.assign('/mht/comic/' + id + '/info.html');
+        }
+    }
+
+</script>
+{% endblock %}

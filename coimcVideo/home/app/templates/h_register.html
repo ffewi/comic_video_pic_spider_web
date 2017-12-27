@@ -1,0 +1,102 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}注册{% endblock %}
+
+{% block content %}
+        <form class="form form-horizontal" id="register">
+            <legend class="text-c">欢迎注册</legend>
+
+            <div class="row cl">
+						<label class="form-label col-xs-3 col-sm-3 col-xs-offset-2 col-sm-offset-2">用户名称：</label>
+						<div class="formControls col-xs-5 col-sm-3">
+							<input id="name" name="name" type="text" class="input-text radius" autocomplete="off" placeholder="用户名称">
+						</div>
+					</div>
+            <div class="row cl">
+						<label class="form-label col-xs-3 col-sm-3  col-xs-offset-2 col-sm-offset-2">电子邮箱：</label>
+						<div class="formControls col-xs-5 col-sm-3">
+							<input  name="email"  type="text" class="input-text radius" autocomplete="off" placeholder="user-name@example.com">
+						</div>
+					</div>
+            <div class="row cl">
+						<label class="form-label col-xs-3 col-sm-3 col-xs-offset-2 col-sm-offset-2">输入口令：</label>
+						<div class="formControls col-xs-5 col-sm-3">
+							<input id="passwd" name="passwd" type="password" class="input-text radius" autocomplete="off" placeholder="输入口令">
+						</div>
+					</div>
+            <div class="row cl">
+						<label class="form-label col-xs-3 col-sm-3 col-xs-offset-2 col-sm-offset-2">重复口令：</label>
+						<div class="formControls col-xs-5 col-sm-3">
+							<input  name="password2" type="password" class="input-text radius" autocomplete="off" placeholder="重复口令">
+						</div>
+					</div>
+            <div class="row cl" id="msgBox" style="display: none">
+                <p class="c-red text-c">温馨提示：<span id="errorMsg"></span></p>
+            </div>
+            <div class="row cl">
+						<div class="col-xs-3 col-sm-3 col-xs-offset-8 col-sm-offset-6">
+							<input class="btn btn-primary radius" type="submit" value="注册">
+						</div>
+					</div>
+
+        </form>
+
+{% endblock %}
+
+{% block js %}
+
+<script type="text/javascript" src="/static/ui/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/ui/js/messages_zh.js"></script>
+<!--<script type="text/javascript" src="/static/ui/js/validate-methods.js"></script>-->
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#register").validate({
+            rules:{
+                email:{
+                    required:true,
+                    email:true,
+                },
+                name:{
+                    required:true,
+                    minlength:2,
+                    maxlength:6,
+                },
+                passwd:{
+                    required:true,
+                    minlength:6
+                },
+                password2:{
+                    required:true,
+                    equalTo: "#passwd"
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                email = $(form).context.email.value
+                name = $(form).context.name.value
+                password1 = $(form).context.passwd.value
+                $.post('/api/users',{
+                    email: email,
+                    name: name.trim(),
+                    passwd: CryptoJS.SHA1(email + ':' + password1).toString()
+                },function(err, r){
+                    if(err.error){
+                        if(err.data){
+                            $('#errorMsg').text(err.message)
+                            $('#msgBox').show();
+                        }
+                    }else {
+                        location.assign(document.referrer);
+                    }
+                })
+            }
+        });
+
+    }); // end $(fun);
+
+</script>
+{% endblock %}
