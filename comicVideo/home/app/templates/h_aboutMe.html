@@ -1,0 +1,242 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}关于我{% endblock %}
+
+
+{% block css %}
+<style type="text/css">
+    .colorFont {
+        /*font-weight: 600;*/
+        /*font-size: 28px;*/
+        font-family: '仿宋';
+        color: #8c888b;
+        background: -webkit-linear-gradient(45deg, #d83afe, #fbd27e, #dffd43, #ee9889, #bed5f5);
+    -moz-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+    -ms-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        color: transparent;
+        -webkit-background-clip: text;
+        animation: ran 10s linear infinite;
+    }
+
+    .mainColorFont {
+        /*font-weight: 200;*/
+        /*font-size: 18px;*/
+        font-family: '新宋体';
+        color: #8c888b;
+        background: -webkit-linear-gradient(45deg, #48091c, #891340, #481a05, #b44c0a, #bed5f5);
+    -moz-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+    -ms-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        color: transparent;
+        -webkit-background-clip: text;
+        animation: ran 10s linear infinite;
+    }
+
+    .logColorFont {
+        /*font-weight: 200;*/
+        /*font-size: 18px;*/
+        font-family: '新宋体';
+        color: #8c888b;
+        background: -webkit-linear-gradient(45deg, rgb(15, 7, 15), #070307, #0f070f, #0f070f, #bed5f5);
+    -moz-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+    -ms-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        color: transparent;
+        -webkit-background-clip: text;
+        animation: ran 10s linear infinite;
+    }
+    .bp{
+        box-shadow: 10px 10px 10px #999
+    }
+    .panel-default .panel-header{
+        border-color: #333;
+        background-color: #333;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container col-md-12">
+    <div class="col-md-12 text-c mt-20">
+        <img class="avatar radius size-XL" src="/static/ui/img/icon_head.png">
+    </div>
+    <div class="col-md-12 text-c mt-20">
+        <div class="panel panel-default radius bp">
+            <div class="panel-header">
+                <span class="colorFont">一句话介绍自己</span>
+            </div>
+            <div class="panel-body f-18 text-l">
+                <div><span class="mainColorFont">姓&nbsp;&nbsp;名：李伟  Li·Wei</span></div>
+                <div><span class="mainColorFont">爱&nbsp;&nbsp;好：向往旅游、热爱编程、有事没事，看看电影、喜欢看漫画，动漫、日常打XXXX</span></div>
+                <div><span class="mainColorFont">特&nbsp;&nbsp;长：毕业时，看了本Java书找了份工作，后即自学了Python，熟悉Linux</span></div>
+                <div><span class="mainColorFont">三&nbsp;&nbsp;围：≈170-??-??</span></div>
+                <div><span class="mainColorFont">电子邮箱：ffewi@foxmail.com</span></div>
+                <div><span class="mainColorFont">联系方式：180****9396（右下角微信）</span></div>
+                <div><span class="mainColorFont">当前等级：本科-IT初阶小成</span></div>
+                <div><span class="mainColorFont">转职职业：网工 <i class="icon Hui-iconfont Hui-iconfont-arrow1-right"></i> 软工[兼职（会计/室内建筑设计）] <i class="icon Hui-iconfont Hui-iconfont-arrow1-right"></i> · ﻿༺༺ ? ༒ ? ༻༻ · </span></div>
+                <div class="mt-10" style="height: 5px;background-color: #666"></div>
+            </div>
+        </div>
+        <div>
+
+
+        </div>
+    </div>
+    <div class="col-md-12 text-c mt-20">
+        <div class="panel panel-default radius bp">
+            <div class="panel-header">
+                <span class="colorFont">技能书</span>
+            </div>
+            <div class="panel-body">
+                <div class="cl">
+                    <span class="col-md-2 f-l mainColorFont f-18 pt-10">Java</span>
+                    <div class="col-md-10">
+                        <div class="progress radius mt-20">
+                            <div class="progress-bar text-l">
+                            <span class="sr-only"
+                                  style="width:85%;background: linear-gradient(to right, #00b360 35%,#ffb036 68%);"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cl">
+                    <span class="col-md-2 mainColorFont f-18 pt-10">Spring</span>
+                    <div class="col-md-10">
+                        <div class="progress radius mt-20">
+                            <div class="progress-bar text-l">
+                            <span class="sr-only"
+                                  style="width:80%;background: linear-gradient(to right, #e39f86 35%,#b0ba90 68%);"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cl">
+
+                    <span class="col-md-2 mainColorFont f-18 pt-10">Python</span>
+                    <div class="col-md-10">
+                        <div class="progress radius mt-20">
+                            <div class="progress-bar text-l">
+                            <span class="sr-only"
+                                  style="width:70%;background: linear-gradient(to right, #da81a1 35%,#7aa4c8 68%);"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cl">
+                    <span class="col-md-2 mainColorFont f-18 pt-10">HTML/CSS/JS</span>
+                    <div class="col-md-10">
+
+                        <div class="progress radius mt-20">
+                            <div class="progress-bar text-l">
+                            <span class="sr-only"
+                                  style="width:75%;background: linear-gradient(to right, #fbd3b6 35%, #ff7f36 68%);"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cl">
+                    <span class="col-md-2 mainColorFont f-18 pt-10">Mybatis/Hibernate</span>
+                    <div class="col-md-10">
+
+                        <div class="progress radius mt-20">
+                            <div class="progress-bar text-l">
+                            <span class="sr-only"
+                                  style="width:60%;background: linear-gradient(to right, #61fd0b 35%, #fd5d12 68%);"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cl">
+                    <span class="col-md-2 mainColorFont f-18 pt-10">Mysql/Oracle</span>
+                    <div class="col-md-10">
+
+                        <div class="progress radius mt-20">
+                            <div class="progress-bar text-l">
+                            <span class="sr-only"
+                                  style="width:80%;background: linear-gradient(to right, #fe92ca 35%, #fd221c 68%);"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cl">
+                    <span class="col-md-2 mainColorFont f-18 pt-10">PhotoShop</span>
+                    <div class="col-md-10">
+
+                        <div class="progress radius mt-20">
+                            <div class="progress-bar text-l">
+                            <span class="sr-only"
+                                  style="width:10%;background: linear-gradient(to right, #bdfe65 35%, #dbfd15 68%);"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cl">
+                    <span class="col-md-2 mainColorFont f-18 pt-10">Office/WPS</span>
+                    <div class="col-md-10">
+
+                        <div class="progress radius mt-20">
+                            <div class="progress-bar text-l">
+                            <span class="sr-only"
+                                  style="width:70%;background: linear-gradient(to right, #00b360 35%,#ffb036 68%);"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cl">
+                    <div class="col-md-12 mt-10" style="height: 5px;background-color: #666"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 text-c mt-20">
+        <div class="panel panel-default radius bp">
+            <div class="panel-header">
+                <span class="colorFont">通关副本</span>
+            </div>
+            <div class="panel-body text-l">
+                <span class="logColorFont f-18">· ????-??～2016-06 ：读书、耍、无聊、开黑</span><br>
+                <span class="logColorFont f-18">· 2016-03～2017-02 ：成都******科技有限公司（服务端工作，以及后台数据管理系统，评论审核。。。）</span><br>
+                <span class="logColorFont f-18">· 2017-05～2017-09 ：云南******数码科技有限公司（昆明云停车平台，服务端、SAAS管理系统）</span><br>
+                <span class="logColorFont f-18">· 2017-09～Nowadays：上海屹通信息科技有限公司（云南农信移动营销柜面迁移，JAVA服务端、后台柜员审核业务）</span><br>
+                <div class="mt-10" style="height: 5px;background-color: #666"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 text-c mt-20">
+        <div class="panel panel-default radius bp">
+            <div class="panel-header">
+                <span class="colorFont">本站历程</span>
+            </div>
+            <div class="panel-body text-l">
+                <span class="logColorFont f-18">· 第一阶段（7天） &nbsp;：突发奇想，想用用Python，于是，花了大概7天学习学习了Python基础</span><br>
+                <span class="logColorFont f-18">· 第二阶段（4天） &nbsp;：学习中看到例子，关于Python-Web,这东西还能做web应用！！！，于是模仿廖老师的demo建立了一个大概的体系</span><br>
+                <span class="logColorFont f-18">· 第三阶段（5天） &nbsp;：包含廖老师demo的所有功能完毕，并且替换了UI风格</span><br>
+                <span class="logColorFont f-18">· 第四阶段（2天） &nbsp;：点着点着返现404 not found之类的空白页面，扩展修改了默认404页面，增加用户权限种类【普通，管理，超级...】</span><br>
+                <span class="logColorFont f-18">· 第五阶段（2天） &nbsp;：不小心点击了一个大神分享的Spider-Python，并且感兴趣</span><br>
+                <span class="logColorFont f-18">· 第六阶段（5天） &nbsp;：Mzitu部分数据 后台逻辑，以及数据资源获取</span><br>
+                <span class="logColorFont f-18">· 第七阶段（4天） &nbsp;：Mzitu页面部分设计，展示效果修改，以及Referrer防盗图解决措施，本人用的方法有点搓</span><br>
+                <span class="logColorFont f-18">· 第八阶段（30+天） ：中间痴迷于看漫画【妖神记、斗破苍穹...】不能自拔</span><br>
+                <span class="logColorFont f-18">· 第九阶段（4天） &nbsp;：个人觉得看漫的那个网站，风格体验不太好，就自己抓了抓数据，在自己电脑上面看（图资源...\(^o^)/...）</span><br>
+                <span class="logColorFont f-18">· 第十阶段（2天） &nbsp;：突然发现，漫画页面采用js生成策略，解决...</span><br>
+                <span class="logColorFont f-18">· 第十一阶段（4天） ：漫画抓取采用后台管理模式，初步构建所有功能集合</span><br>
+                <span class="logColorFont f-18">· 第十二阶段（3天） ：完善MHuaTai后台管理，优化操作体验，但还是余留了部分功能未完成（更新）</span><br>
+                <span class="logColorFont f-18">· 第十三阶段（5天） ：实现页面展示MHuaTai效果，设计漫画连看策略效果</span><br>
+                <span class="logColorFont f-18">· 第十四阶段（1天） ：页面所有功能联调，放弃响应式布局扩展，首页展示暂时未有心仪想法，暂不做</span><br>
+                <span class="logColorFont f-18">· 第十五阶段（1天） ：关于我-页面设计，主要介绍本站经历过程，每日工作时长1~6个小时不等...</span><br>
+                <span class="logColorFont f-18">· 第十六阶段（1天） ：将Web应用部署至公网环境【TIME:2018-01-10】</span><br>
+                <div class="text-r"><span class="colorFont f-18">༺༺伟༒神༻༻</span></div>
+                <div class="mt-10 text-c" style="height: 5px;border-bottom: dashed">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12"  style="min-height: 10px">
+
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

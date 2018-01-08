@@ -1,0 +1,21 @@
+[INFO  - 2018-01-03T11:55:54.362Z] GhostDriver - Main - running on port 63301
+[INFO  - 2018-01-03T11:55:55.716Z] Session [0e247ce0-f07d-11e7-b5cf-6f760d53a04a] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":false,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5","webSecurityEnabled":true}
+[INFO  - 2018-01-03T11:55:55.741Z] Session [0e247ce0-f07d-11e7-b5cf-6f760d53a04a] - page.customHeaders:  - {}
+[INFO  - 2018-01-03T11:55:55.742Z] Session [0e247ce0-f07d-11e7-b5cf-6f760d53a04a] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"},"phantomjs.page.settings.userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5","phantomjs.page.settings.loadImages":false}
+[INFO  - 2018-01-03T11:55:55.742Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 0e247ce0-f07d-11e7-b5cf-6f760d53[E[ERROR - 2018-01-03T11:57:49.282Z] Session [0dfcd0a0-f07d-11e7-8b83-31faf7d41ab0] - page.onError - msg: TypeError: null is not an object (evaluating 'document.body.appendChild')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-01-03T11:57:49.287Z] Session [0dfcd0a0-f07d-11e7-8b83-31faf7d41ab0] - page.onError - stack:
+  loadJs (http://push.zhanzhang.baidu.com/push.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+om/static/api/js/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-01-03T11:57:43.889Z] Session [0c364170-f07d-11e7-9f2e-098eef6d3f52] - page.onError - msg: Error: load css timeout : http://bdimg.share.baidu.com/static/api/css/share_style0_16.css?v=6aba13f0.css
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-01-03T11:57:43.890Z] Session [0c364170-f07d-11e7-9f2e-098eef6d3f52] - page.onError - stack:
+  (anonymous function) (http://bdimg.share.baidu.com/static/api/js/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error

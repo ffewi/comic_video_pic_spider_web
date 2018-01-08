@@ -1,0 +1,452 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}MHT管理{% endblock %}
+
+
+{% block css %}
+<style type="text/css">
+    .sw-40 {
+        width: 80px;
+    }
+
+    .table a {
+        text-decoration: none;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-c mt-20">
+    <div class="btn-group">
+        <span id="blogs" class="btn btn-default radius sw-40">日志</span>
+        <span id="comments" class="btn btn-default radius sw-40">评论</span>
+        <span id="users" class="btn btn-default radius sw-40">用户</span>
+        <span id="mzt" class="btn btn-default radius sw-40">MZiTu</span>
+        <span id="mht" class="btn btn-warning radius sw-40">MHuaTai</span>
+    </div>
+    <!-- 错误提示消息 -->
+    <div style="height: 40px" class="mt-5 mb-5" id="errorMsg">
+    </div>
+
+    <div style="min-height: 160px">
+        <div class="col-md-12">
+            <div class="col-md-1 col-md-offset-2" style="padding: 4px 5px;text-align: left">
+                <label>选择操作</label>
+            </div>
+
+            <div class="col-md-2"><span class="select-box radius">
+            <select id="operation" class="select" size="1" onchange="inputUrl(this)">
+                <option value="0">获取所有漫画</option>
+                <option value="1">获取指定漫画详情</option>
+                <option value="2">获取指定漫画章节资源</option>
+                <option value="3">更新指定漫画（连载）</option>
+                <option value="4">修复指定漫画章节资源</option>
+            </select></span></div>
+
+
+            <div class="col-md-1">
+                <a id="commit_pro" class="btn btn-danger radius"><i
+                        class="icon Hui-iconfont Hui-iconfont-xuanze"></i>&nbsp;&nbsp;&nbsp;执行</a>
+            </div>
+        </div>
+        <div id="url_in" class="col-md-12 mt-5" style="display: none">
+            <div class="col-md-1 col-md-offset-2" style="padding: 4px 5px;text-align: left"><label>漫画：</label></div>
+            <div class="col-md-2" style="border-bottom: solid gray;padding: 4px 5px;"><span id="comic_name">...</span>
+            </div>
+            <div class="col-md-6"><input id="comic_main_id" class="input-text radius" placeholder="漫画唯一标示"
+                                         readonly="readonly"></div>
+        </div>
+        <div id="comic_section_pic" class="col-md-12 mt-5" style="display: none">
+            <div class="col-md-1 col-md-offset-2" style="padding: 4px 5px;text-align: left"><label>漫画章节：</label></div>
+            <div class="col-md-2"><span class="select-box radius">
+            <select class="select" id="section_pic_data" size="1">
+            </select></span></div>
+            <div class="col-md-1">
+                <a id="up_comic_section_pic" class="btn btn-danger radius"><i
+                        class="icon Hui-iconfont Hui-iconfont-xuanzhuan"></i>&nbsp;&nbsp;&nbsp;更新</a>
+            </div>
+            <div class="col-md-1">
+                <a id="get_comic_section_pic" class="btn btn-warning radius"><i
+                        class="icon Hui-iconfont Hui-iconfont-shenhe-weitongguo"></i>&nbsp;&nbsp;&nbsp;获取章节</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12 mb-5 ">
+        <div id="search_comic" class="col-md-2 f-r btn btn-primary radius"><span><i
+                class="icon Hui-iconfont Hui-iconfont-search1"></i> 查询</span>
+        </div>
+        <div class="col-md-4 f-r"><input id="search_val" class="input-text radius" placeholder="查找心仪的漫画"></div>
+    </div>
+
+    <table id="comic_content" class="table table-border table-bg table-hover">
+        <thead>
+        <tr>
+            <th>唯一标示</th>
+            <th>名称</th>
+            <th>状态</th>
+            <th>类型</th>
+        </tr>
+        </thead>
+
+        <tbody id="comic_list_info">
+        {% for c in index %}
+        <tr>
+            <td class="main_id"><a>{{c.id}}</a></td>
+            <td>{{c.name}}</td>
+            <td>{{c.status}}</td>
+            <td>{{c.type}}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+    <div id="page_mht">
+        {{ pagination('/?page=', page) }}
+    </div>
+
+    <div><span class="f-20">此次操作进度</span></div>
+    <table class="table table-border table-bg table-hover mb-10">
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>内容</th>
+            <th>状态</th>
+            <th>时间</th>
+        </tr>
+        </thead>
+
+        <tbody id="logTableBody">
+
+        <tr>
+            <td>消息案例</td>
+            <td>全部索引套图地址</td>
+            <td><a herf="javascript:;" onclick="showErrorMsg('执行中...')">执行中...</a></td>
+            <td>1分钟前</td>
+        </tr>
+
+        <tr>
+            <td>消息案例</td>
+            <td>选择性获取</td>
+            <td><a herf="javascript:;" onclick="closeErrorMsg()">执行完毕！</a></td>
+            <td>10分钟前</td>
+        </tr>
+        </tbody>
+
+    </table>
+    <!--<div class="mt-10">-->
+        <!--<span>当前记录条数：10</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总共记录条数：200</span><br>-->
+        <!--<a href="javascript:;" class="btn btn-warning radius mt-10"><i-->
+                <!--class="icon Hui-iconfont Hui-iconfont-more2 "></i> 点击加载更多 <i-->
+                <!--class="icon Hui-iconfont Hui-iconfont-more2"></i></a>-->
+    <!--</div>-->
+
+
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+
+<script type="text/javascript">
+
+    var trans_id = null;
+    var start_order = 0;
+    var last_execute_id = [];
+
+    function generateUUID() {
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+
+    function timeFormate(time) {
+        /*var delta = time - new Date().getTime()
+        if (delta < 60)
+            return delta + '秒前';
+        if (delta < 3600)
+            return (delta / 60) + '分钟前';
+        if (delta < 86400)
+            return (delta / 3600) + '小时前';
+        if (delta < 604800)
+            return (delta / 86400) + '天前';*/
+        var dt = new Date(time * 1000);
+
+        return dt.toLocaleString();
+    }
+
+    function showErrorMsg(msg) {
+        if (!msg) {
+            msg = '操作成功!';
+        }
+        var content = '<div class="Huialert Huialert-success"><i class="Hui-iconfont" onclick="closeErrorMsg()"></i><span class="c-red">' + msg + '</span></div>';
+        $('#errorMsg').html(content);
+    }
+
+    function closeErrorMsg() {
+        $('#errorMsg').html('');
+    }
+
+    function clearSelectData(){
+        $('#section_pic_data').html('');
+    }
+
+    function inputUrl(obj) {
+        var hideArr = ['1', '2', '4'];
+        var showArr = ['3'];
+        var value = $(obj).val();
+        clearSelectData();
+        if (hideArr.indexOf(value) !== -1) {
+            $('#comic_section_pic').hide();
+            $('#url_in').show();
+            tipMsg('请点击 下面列表唯一标示选择 漫画');
+            if (value == '4') {
+                //修复漫画章节图片
+                $('#comic_section_pic').show();
+            }
+//            setTimeout(closeErrorMsg,4000,{});
+        } else if (showArr.indexOf(value) !== -1) {
+//            $('#url_in').show();
+            tipMsg('当前操作未实现，等待以后。如有空余时间，再开发...', 'warning');
+//            setTimeout(closeErrorMsg,4000,{});
+        } else {
+            $('#url_in').hide();
+            $('#comic_section_pic').hide();
+        }
+
+    }
+
+    $('#commit_pro').on('click', function () {
+        var value = $('#operation').val();
+        if (value == 0) {
+            var data = {
+                'thread_count': 20,
+                'trans_id': generateUUID()
+            };
+            trans_id = data.trans_id;
+            postDataCallShowLog('/api/mhtIndex', data);
+
+        } else if (value == 1) {
+            var index_id = $('#comic_main_id').val();
+            if (!index_id) {
+                tipMsg('请先选择要操作的漫画', 'info');
+                return;
+            }
+            var data = {
+                'thread_count': 1,
+                'trans_id': generateUUID(),
+                'index_id': index_id
+            };
+            trans_id = data.trans_id;
+            postDataCallShowLog('/api/' + index_id + '/comic_info', data);
+        } else if (value == 2) {
+            var index_id = $('#comic_main_id').val();
+            var comic_name = $('#comic_name').text();
+            if (!index_id) {
+                tipMsg('请先选择要操作的漫画', 'info');
+                return;
+            }
+            var data = {
+                'trans_id': generateUUID(),
+                'index_id': index_id,
+                'comic_name': comic_name
+            };
+            trans_id = data.trans_id;
+            postDataCallShowLog('/api/' + index_id + '/comic_pic', data);
+        } else {
+            tipMsg('功能开发中', 'info');
+        }
+
+    });
+
+    function postDataCallShowLog(url, data) {
+        if (!url || url.indexOf('/api') == -1) {
+            tipMsg('非法请求地址！', 'waring');
+            return;
+        }
+        $.post(url, data, function (obj, msg) {
+            if (msg == 'success' && obj.status == 'ok') {
+                tipMsg(obj.msg || '操作流程已经提交！', 'info');
+
+                start_order = 0;
+                var tb = $('#logTableBody');
+                tb.html('');
+                loopShowLog();
+            } else if (msg == 'success' && obj.status == 'fail') {
+                tipMsg(obj.err, 'waring');
+            } else {
+                showErrorMsg('网络|操作异常！！！')
+            }
+
+        })
+    }
+
+    function loopShowLog() {
+        var tbody = $('#logTableBody');
+
+        setTimeout(function (op) {
+            $.get('/api/' + trans_id + '/logger', op, function (obj, msg) {
+                if (msg == 'success') {
+
+                    if (obj) {
+                        var arr = obj.obj;
+                        var continue_next = false;
+                        for (var i = 0; i < arr.length; i++) {
+                            var ele = document.createElement('tr');
+                            var ob = arr[i];
+                            var htmlContent = '<td>' + ob.message_type + '</td>' +
+                                '<td>' + ob.content + '</td>' +
+                                '<td><a herf="javascript:;">' + ob.status + '</a></td>' +
+                                '<td>' + timeFormate(ob.created_at) + '</td>';
+                            ele.innerHTML = htmlContent;
+                            tbody.append(ele);
+                            if (ob.status == '执行完毕!!!') {
+                                closeErrorMsg();
+                                return; //可以终止运行
+                            }
+                            continue_next = ob.status == '执行完毕!!!' ? true : false;
+                        }
+                        start_order += arr.length;
+                        if (!continue_next) {
+                            loopShowLog();
+                        }
+
+                    }
+
+                }
+            });
+
+        }, 5000, {
+            'trans_id': trans_id,
+            'start_order': start_order
+        });
+
+    }
+
+    function tipMsg(msg, level) {
+        if (!level) {
+            level = 'info'
+        }
+        var content = '<div class="Huialert Huialert-' + level + '"><i class="Hui-iconfont" onclick="closeErrorMsg()"></i><span class="c-red">' + msg + '</span></div>';
+        $('#errorMsg').html(content);
+    }
+
+
+    $('span.sw-40').on('click', function () {
+        var name = $(this).attr('id');
+        location.assign('/auth/manage/' + name + '.html');
+    });
+
+    $('td.main_id').on('click', function () {
+        var id = $(this).text();
+        $('#comic_main_id').val(id);
+        $('#comic_name').text($(this).siblings()[0].innerText)
+    });
+
+    $('#search_comic').on('click', function () {
+
+        var name = $('#search_val').val();
+        if (!name.trim()) {
+            $.Huimodalalert('温馨提示：请输入查询漫画名称。', 2000);
+            return;
+        }
+
+        $.get('/api/search/' + name + '/comic', null, function (obj, msg) {
+            if (msg == 'success' && obj.status == 'ok') {
+                // 刷新 表格
+                var list_data = obj.list;
+
+                $('#comic_list_info').html('')
+                for (var i = 0; i < list_data.length; i++) {
+                    var ob = list_data[i];
+                    var ele = document.createElement('tr');
+                    var tr_content = '<tr>' +
+                        '<td class="main_id"><a>' + ob.id + '</a></td>' +
+                        '<td>' + ob.name + '</td>' +
+                        '<td>' + ob.status + '</td>' +
+                        '<td>' + ob.type + '</td>' +
+                        '</tr>';
+                    ele.innerHTML = tr_content;
+                    $('#comic_list_info').append(ele);
+                }
+                $('#page_mht').hide();
+                $('td.main_id').on('click', function () {
+                    var id = $(this).text();
+                    $('#comic_main_id').val(id);
+                    $('#comic_name').text($(this).siblings()[0].innerText)
+                });
+            } else if (msg == 'success' && obj.status == 'fail') {
+                $.Huimodalalert(obj.err, 3000);
+            } else {
+                $.Huimodalalert('网络异常！！！', 6000);
+            }
+        })
+    });
+
+    $('#up_comic_section_pic').on('click', function () {
+        if (!$('#comic_main_id').val()) {
+            tipMsg('请先选择要修复的漫画', 'warning');
+        } else if ($('#section_pic_data').html().trim() == '') {
+            tipMsg('请先选择获取当前选中漫画的章节信息，点击获取章节按钮！！！', 'warning');
+        } else {
+
+            var id = $('#section_pic_data').val();
+            if (last_execute_id.indexOf(id) != '-1') {
+                tipMsg('请勿重复提交修复操作！！！', 'warning');
+                $.Huimodalalert('温馨提示：重复提交了操作！', 2000);
+                return;
+            }
+            last_execute_id.push(id);
+            tipMsg('开始更新:' + id);
+            var data = {
+                'trans_id': generateUUID(),
+                'comic_name': $('#comic_name').text()
+
+            };
+            trans_id = data.trans_id;
+            postDataCallShowLog('/api/up/' + id + '/comic_pic', data);
+        }
+    });
+
+    $('#get_comic_section_pic').on('click', function () {
+        var id = $('#comic_main_id').val();
+        if (!id || id.trim() == '') {
+            tipMsg('请先选择漫画！！！', 'info');
+        }
+        else {
+            // 开始获取章节信息
+            $.get('/api/' + id + '/comic_pic', {}, function (obj, msg) {
+                if (msg == 'success') {
+                    if (obj && obj.status) {
+                        if (obj.status == 'ok') {
+                            var arr = obj.data;
+                            var content = ''
+                            for (var i = 0; i < arr.length; i++) {
+                                var it = arr[i];
+                                content += '<option value="' + it.id + '">' + it.title + '</option>'
+                            }
+                            $('#section_pic_data').html(content);
+
+                        } else {
+                            tipMsg(obj.err, 'info');
+                        }
+                    } else {
+                        tipMsg('请求发生错误！！！', 'warning');
+                    }
+                } else {
+                    $.Huimodalalert('网络异常！！！', 6000);
+                }
+            });
+        }
+    });
+
+</script>
+{% endblock %}

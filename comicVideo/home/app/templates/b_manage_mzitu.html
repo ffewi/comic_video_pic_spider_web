@@ -1,0 +1,244 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}MZT管理{% endblock %}
+
+
+{% block css %}
+<style type="text/css">
+    .sw-40 {
+        width: 80px;
+    }
+
+    .table a {
+        text-decoration: none;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-c mt-20">
+    <div class="btn-group">
+        <span id="blogs" class="btn btn-default radius sw-40">日志</span>
+        <span id="comments" class="btn btn-default radius sw-40">评论</span>
+        <span id="users" class="btn btn-default radius sw-40">用户</span>
+        <span id="mzt" class="btn btn-warning radius sw-40">MZiTu</span>
+        <span id="mht" class="btn btn-default radius sw-40">MHuaTai</span>
+    </div>
+    <!-- 错误提示消息 -->
+    <div style="height: 40px" class="mt-5 mb-5" id="errorMsg">
+    </div>
+
+    <div style="min-height: 160px">
+        <div class="col-md-1 col-md-offset-2" style="padding: 4px 5px;">
+            <label>选择操作</label>
+        </div>
+
+        <div class="col-md-2"><span class="select-box radius">
+        <select class="select" size="1">
+            <option value="0">索引图(全部)</option>
+            <option value="1">子图详情(全部)</option>
+        </select></span></div>
+
+        <div class="col-md-1">
+            <a id="commit_pro" class="btn btn-danger radius"><i class="icon Hui-iconfont Hui-iconfont-xuanze"></i>&nbsp;&nbsp;&nbsp;执行</a>
+        </div>
+
+    </div>
+
+    <div><span class="f-20">操作记录日志</span></div>
+    <table class="table table-border table-bg table-hover">
+        <thead>
+        <tr>
+            <th>操作类型</th>
+            <th>内容</th>
+            <th>状态</th>
+            <th>执行时间</th>
+        </tr>
+        </thead>
+
+        <tbody id="logTableBody">
+
+        <tr>
+            <td>获取套图地址篇</td>
+            <td>全部索引套图地址</td>
+            <td><a herf="javascript:;" onclick="showErrorMsg('执行中...')">执行中...</a></td>
+            <td>1分钟前</td>
+        </tr>
+
+        <tr>
+            <td>获取套图子图片</td>
+            <td>选择性获取</td>
+            <td><a herf="javascript:;" onclick="closeErrorMsg()">执行完毕！</a></td>
+            <td>10分钟前</td>
+        </tr>
+        </tbody>
+
+    </table>
+    <div class="mt-10">
+        <span>当前记录条数：10</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总共记录条数：200</span><br>
+        <a href="javascript:;" class="btn btn-warning radius mt-10"><i
+                class="icon Hui-iconfont Hui-iconfont-more2 "></i> 点击加载更多 <i
+                class="icon Hui-iconfont Hui-iconfont-more2"></i></a>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+
+    var trans_id = null;
+    var start_order = 0;
+    var not_allow = [];
+
+    function generateUUID() {
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+
+    function timeFormate(time) {
+        /*var delta = time - new Date().getTime()
+        if (delta < 60)
+            return delta + '秒前';
+        if (delta < 3600)
+            return (delta / 60) + '分钟前';
+        if (delta < 86400)
+            return (delta / 3600) + '小时前';
+        if (delta < 604800)
+            return (delta / 86400) + '天前';*/
+        var dt = new Date(time * 1000);
+
+        return dt.toLocaleString();
+    }
+
+    function showErrorMsg(msg) {
+        if (!msg) {
+            msg = '操作成功!';
+        }
+        var content = '<div class="Huialert Huialert-success"><i class="Hui-iconfont" onclick="closeErrorMsg()"></i><span class="c-red">' + msg + '</span></div>';
+        $('#errorMsg').html(content);
+    }
+
+    function closeErrorMsg() {
+        $('#errorMsg').html('');
+    }
+
+    function inputUrl(obj) {
+        var hideArr = ['0', '1'];
+        var value = $(obj).val();
+        if (hideArr.indexOf(value) !== -1) {
+            tipMsg('不推荐此操作，全量更新，花费时间较长，建议第一次无数据的时候启用.');
+        } else {
+        }
+    }
+
+    $('#commit_pro').on('click', function () {
+        var value = $('select.select').val();
+        if (not_allow.indexOf(value) != '-1') {
+            tipMsg('请勿重复提交修复操作！！！', 'warning');
+            $.Huimodalalert('温馨提示：重复提交了操作！', 2000);
+            return;
+        }
+        if (value == 0) {
+            var data = {
+                'trans_id': generateUUID()
+            }
+            trans_id = data.trans_id
+            not_allow.push(value);
+            postDataCallShowLog('/api/mIndex', data);
+        } else if (value == 1) {
+            var data = {
+                'trans_id': generateUUID()
+            }
+            trans_id = data.trans_id
+            not_allow.push(value);
+            postDataCallShowLog('/api/pic/group', data);
+        }
+    });
+
+    function postDataCallShowLog(url, data) {
+        if (!url || url.indexOf('/api') == -1) {
+            tipMsg('非法请求地址！', 'waring');
+            return;
+        }
+        $.post(url, data, function (obj, msg) {
+            if (msg == 'success' && obj.status == 'ok') {
+                tipMsg(obj.msg || '操作流程已经提交！', 'info');
+
+                start_order = 0;
+                var tb = $('#logTableBody');
+                tb.html('');
+                loopShowLog();
+            } else if (msg == 'success' && obj.status == 'fail') {
+                tipMsg(obj.err, 'waring');
+            } else {
+                showErrorMsg('网络|操作异常！！！')
+            }
+
+        })
+    }
+
+    function loopShowLog() {
+        var tbody = $('#logTableBody');
+
+        setTimeout(function (op) {
+            $.get('/api/' + trans_id + '/logger', op, function (obj, msg) {
+                if (msg == 'success') {
+
+                    if (obj) {
+                        var arr = obj.obj;
+                        var continue_next = false;
+                        for (var i = 0; i < arr.length; i++) {
+                            var ele = document.createElement('tr');
+                            var ob = arr[i];
+                            var htmlContent = '<td>' + ob.message_type + '</td>' +
+                                '<td>' + ob.content + '</td>' +
+                                '<td><a herf="javascript:;">' + ob.status + '</a></td>' +
+                                '<td>' + timeFormate(ob.created_at) + '</td>';
+                            ele.innerHTML = htmlContent;
+                            tbody.append(ele);
+                            if (ob.status == '执行完毕!!!') {
+                                closeErrorMsg();
+                                return; //可以终止运行
+                            }
+                            continue_next = ob.status == '执行完毕!!!' ? true : false;
+                        }
+                        start_order += arr.length;
+                        if (!continue_next) {
+                            loopShowLog();
+                        }
+
+                    }
+
+                }
+            });
+
+        }, 5000, {
+            'trans_id': trans_id,
+            'start_order': start_order
+        });
+
+    }
+
+    function tipMsg(msg) {
+        var content = '<div class="Huialert Huialert-info"><i class="Hui-iconfont" onclick="closeErrorMsg()"></i><span class="c-red">' + msg + '</span></div>';
+        $('#errorMsg').html(content);
+    }
+
+
+    $('span.sw-40').on('click', function () {
+        var name = $(this).attr('id');
+        location.assign('/auth/manage/' + name + '.html');
+    });
+
+</script>
+{% endblock %}

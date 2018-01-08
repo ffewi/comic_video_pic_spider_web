@@ -1,0 +1,403 @@
+{% extends 'h_base__.html' %}
+
+{% block title %}mzitu{% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .i-wh {
+        width: 140px;
+        height: 168px;
+    }
+
+    .c-pl {
+        padding-left: 0px;
+    }
+
+    .c-pr {
+        padding-right: 0px;
+    }
+
+    .travel-pic {
+        width: 280px;
+    }
+
+    .travel-pic li {
+        display: inline;
+        float: left;
+        margin-right: 20px;
+        overflow: hidden;
+        width: inherit;
+    }
+
+    .travel-pic img {
+        border: 0;
+        width: 100%;
+        height: 380px;
+        vertical-align: top;
+        display: block;
+        transition: all .3s ease;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -o-transition: all .3s ease;
+    }
+
+    .travel-pic a:hover img {
+        transform: scale(1.04, 1.04);
+        -ms-transform: scale(1.04, 1.04);
+        -webkit-transform: scale(1.04, 1.04);
+    }
+
+    .cl-plr {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .sd-10 {
+        box-shadow: 10px 10px 10px #999
+    }
+</style>
+<link rel="stylesheet prefetch" href="/static/photo/dist/photoswipe.css">
+<link rel="stylesheet prefetch" href="/static/photo/dist/default-skin/default-skin.css">
+{% endblock %}
+{% block content %}
+<!-- demo s-->
+<div class="container-fluid">
+    <div id="slider-3" class="col-md-12 mt-20 ">
+        <div class="slider">
+            <div class="bd">
+                <ul>
+                    <li class="radius" style="height: 350px;"><a href="javascript:void(0);" target="_blank"><img class="waitLoad "
+                                                                                               src="http://img.zcool.cn/community/01bd435a1feeeda801216e8d287aa0.jpg@1380w"></a>
+                    </li>
+                    <li class="radius" style="height: 350px;"><a href="javascript:void(0);" target="_blank"><img class="waitLoad "
+                                                                                               src="http://img.zcool.cn/community/016d975a1fef2da801216e8d919256.jpg@1380w"></a>
+                    </li>
+                    <li class="radius" style="height: 350px;"><a href="javascript:void(0);" target="_blank"><img class="waitLoad "
+                                                                                               src="http://img.zcool.cn/community/01bd435a1feeeda801216e8d287aa0.jpg@1380w"></a>
+                    </li>
+                    <li class="radius" style="height: 350px;"><a href="javascript:void(0);" target="_blank"><img class="waitLoad "
+                                                                                               src="http://img.zcool.cn/community/01bd435a1feeeda801216e8d287aa0.jpg@1380w"></a>
+                    </li>
+                </ul>
+            </div>
+            <ol class="hd cl rectangle ">
+                <li class="radius">1</li>
+                <li class="radius">2</li>
+                <li class="radius">3</li>
+                <li class="radius">4</li>
+            </ol>
+        </div>
+    </div>
+
+
+</div>
+<div class="container-fluid">
+
+    {% if __user__ %}
+    <div class="col-md-12 mt-10 text-c">精彩时刻即将来临...
+
+    </div>
+    {% for p in pictures %}
+    <div class="col-md-3 mt-10">
+
+        <div class="col-md-12 cl-plr sd-10 radius">
+
+            <ul class="travel-pic">
+                <li><a>
+                    <div class="maskWraper text-c">
+                        <img class="beauty wait-show radius" data-id="{{p.id}}" data-show="{{p.pic_url}}">
+                        <div class="maskBar text-c text-overflow" style="width: inherit">{{p.pic_title}}</div>
+                    </div>
+                </a>
+                </li>
+
+            </ul>
+            <div class="col-md-12 mt-5">
+                <div class="col-md-6" style="padding-left: 0px"><i
+                        class="icon Hui-iconfont Hui-iconfont-fenlei f-14 c-red" title="类型：{{p.pic_type}}"></i>
+                    {{p.pic_type}}
+                </div>
+                <div class="col-md-6"><i class="icon Hui-iconfont Hui-iconfont-yanjing f-14 c-orange"
+                                         title="浏览量：{{p.views|views}}"></i> {{p.views|views}}
+                </div>
+                <div class="col-md-12" style="padding-left: 0px"><i
+                        class="icon Hui-iconfont Hui-iconfont-shijian f-14 c-orange"
+                        title="更新时间: {{p.created_at|datetime}}"></i> <span
+                        class="c-999">{{p.created_at|datetime}}</span></div>
+
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+    <div class="col-md-12 cl mt-20">
+        {{ pagination('/?page=', page) }}
+    </div>
+    {%else%}
+    <div class="col-md-12 mt-10 radius" style="min-height: 180px;">
+        <div class="c-orange text-c f-28" style="position: absolute;top: 50%;width: inherit">
+            <span> 登录之后，体验更多精彩...</span>
+        </div>
+
+    </div>
+    {% endif %}
+</div>
+<!-- demo e-->
+<!-- photoSwipe start-->
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="关闭 (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="分享"></button>
+
+                <button class="pswp__button pswp__button--fs" title="全屏"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="放大/缩小"></button>
+
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"><i
+                    class=" icon Hui-iconfont Hui-iconfont-slider-left"></i>
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- photoSwipe end-->
+
+{% endblock %}
+
+{% block js %}
+<!-- 控制权限 -->
+{% if __user__ %}
+{% if __user__.admin >= 2 %}
+<script type="text/javascript">
+    var showPic = true;
+</script>
+{% else %}
+<script type="text/javascript">
+    var showPic = false;
+    var msgArr = ['<span class="c-orange">未经大佬授权，不等擅自入内！</span>' +
+    '<br><span class="c-red">(づ￣3￣)づ╭❤～<br>请联系大佬授权...</span>',
+        '<span class="c-orange">大佬的家门是尔等随意进出的吗？</span>' +
+        '<br><span class="c-red">～❤(*￣︶￣)❤～<br>请联系大佬授权...</span>',
+        '<span class="c-orange">当前用户【{{ __user__.name}}】权限不足</span>' +
+        '<br><span class="c-red">～o(*￣︶￣*)o～<br>请联系管理员赋权！！！</span>'];
+</script>
+{% endif %}
+
+
+{% else %}
+<script type="text/javascript">
+    var showPic = false;
+</script>
+{% endif %}
+<!-- 控制权限结束 -->
+
+<script type="text/javascript" src="/static/ui/js/jquery.SuperSlide.min.js"></script>
+<script src="/static/photo/dist/photoswipe.js"></script>
+<script src="/static/photo/dist/photoswipe-ui-default.js"></script>
+
+<script type="text/javascript">
+    var resovleReferr = true;
+    var currentIndex = -1;
+    $('.waitLoad').lazyload();
+    $('.maskWraper').Huihover();
+    $(function () {
+        //silder
+        jQuery("#slider-3 .slider").slide({
+            mainCell: ".bd ul",
+            titCell: ".hd li",
+            trigger: "click",
+            effect: "leftLoop",
+            autoPlay: true,
+            delayTime: 700,
+            interTime: 5000,
+            pnLoop: false, titOnClassName: "active"
+        });
+
+        //end silder
+    });
+    $(function () {
+//		alert(showPic);
+    });
+    $('img.wait-show').each(function (index, ele) {
+
+        var data = {
+            'pic_id': $(ele).attr('data-id'),
+            'url': $(ele).attr('data-show')
+        }
+        $.get('/mZiTu/getPicSource', data, function (obj, msg) {
+            if (obj) {
+                $(ele).removeAttr('data-show');
+                $(ele).attr('src', obj.img);
+            } else {
+                $(ele).removeAttr('data-show');
+                $(ele).attr('src', '/static/ui/img/404.png');
+            }
+
+        });
+
+    });
+
+    var openPhotoSwipe = function (pi) {
+        var pswpElement = document.querySelectorAll('.pswp')[0];
+
+        // build items array
+        var items = pi;
+
+        // define options (if needed)
+        var options = {
+            // history & focus options are disabled on CodePen
+            history: false,
+            focus: false,
+            bgOpacity: 0.85,
+//            showAnimationDuration: 0,
+//            hideAnimationDuration: 0,
+            shareButtons: [
+                {id: 'download', label: '下载图片', url: '{{raw_image_url}}', download: true}
+            ],
+
+        };
+
+        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+        gallery.init();
+
+        gallery.listen('imageLoadComplete', function (index, item) {
+            // index - index of a slide that was loaded
+            // item - slide object
+            gallery.options.shareButtons[0].url = gallery.currItem.src;
+        });
+        // After slides change
+        // (after content changed)
+        gallery.listen('afterChange', function () {
+            gallery.options.shareButtons[0].url = gallery.currItem.src;
+        });
+
+        gallery.listen('gettingData', function (index, item) {
+            // index - index of a slide that was loaded
+            // item - slide object
+            // e.g. change path to the image based on `something`
+            if (currentIndex == index || item.getPic) {
+                return;
+            }
+
+            if (resovleReferr) {
+                $.ajax({
+                    url: '/mZiTu/getPicSource',
+                    type: 'GET',
+                    async: false,
+                    timeout: 5000,
+                    data: {
+                        pic_id: item.p_id,
+                        url: item.src
+                    },
+                    error: function () {
+                       $.Huimodalalert('请求网络超时！',10000);
+                    },
+                    success: function (data) {
+                        item.src = data.img;
+                        currentIndex = index;
+                        item.getPic = true;
+                    }
+                });
+
+            } else {
+//                默认
+//                item.src = item.somethingElse;
+            }
+            // sets a flag that slides should be updated
+            gallery.invalidateCurrItems();
+            // updates the content of slides
+            gallery.updateSize(true);
+        });
+    };
+
+    var items = [];
+    $('.beauty').on('click', function (index, ele) {
+        if (!showPic) {
+            $.Huimodalalert(msgArr[Math.floor((Math.random() - 0.0000001) * 3)], 5000);
+            return;
+        }
+        $.get('/mZiTu/picGroup', {
+            'group_id': $(this).attr('data-id')
+        }, function (obj, msg) {
+            if (obj) {
+                var list = obj.list;
+                items = [];
+                for (var i = 0; i < list.length; i++) {
+                    var pic = {
+                        src: list[i].img_url,
+                        w: 960,
+                        h: 1440,
+                        p_id: list[i].id
+                    };
+                    items.push(pic)
+                }
+                openPhotoSwipe(items);
+            } else {
+
+            }
+
+        })
+
+    });
+
+
+</script>
+<!-- photoSwipe js-->
+
+<!-- photoSwipe end-->
+
+{% endblock %}
