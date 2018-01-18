@@ -122,7 +122,8 @@ def get_blog(id):
     comments = yield from Comment.findAll('blog_id=?', [id], orderBy='created_at desc')
     for c in comments:
         c.html_content = text2html(c.content)
-    blog.html_content = markdown2.markdown(blog.content)
+    # blog.html_content = markdown2.markdown(blog.content)
+    blog.html_content = blog.content
     return {
         '__template__': 'h_blog.html',
         'blog': blog,
@@ -382,7 +383,7 @@ def api_get_blog(*, id):
 
 # 保存日志
 @post('/api/blogs')
-def api_create_blog(request, *, name, summary, content):
+def api_create_blog(request, *, name, summary, content, tags):
     check_admin(request)
     if not name or not name.strip():
         raise APIValueError('name', 'name cannot be empty.')
@@ -391,13 +392,13 @@ def api_create_blog(request, *, name, summary, content):
     if not content or not content.strip():
         raise APIValueError('content', 'content cannot be empty.')
     blog = Blog(user_id=request.__user__.id, user_name=request.__user__.name, user_image=request.__user__.image,
-                name=name.strip(), summary=summary.strip(), content=content.strip())
+                name=name.strip(), summary=summary.strip(), content=content.strip(), tags=tags.strip())
     yield from blog.save()
     return blog
 
-
+# 修改日志
 @post('/api/blogs/{id}')
-def api_update_blog(id, request, *, name, summary, content):
+def api_update_blog(id, request, *, name, summary, content, tags):
     check_admin(request)
     blog = yield from Blog.find(id)
     if not name or not name.strip():
@@ -409,6 +410,7 @@ def api_update_blog(id, request, *, name, summary, content):
     blog.name = name.strip()
     blog.summary = summary.strip()
     blog.content = content.strip()
+    blog.tags = tags.strip()
     yield from blog.update()
     return blog
 

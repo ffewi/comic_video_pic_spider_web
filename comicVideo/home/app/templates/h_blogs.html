@@ -13,6 +13,40 @@
         background-color: #333;
         color: #fff
     }
+    .c-pink :hover{
+        font-family: '仿宋';
+        color: #8c888b;
+        background: -webkit-linear-gradient(45deg, #fe3372, #fb8915, #fee414, #ee19c7, #bed5f5);
+                    -moz-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+                    -ms-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        color: transparent;
+        -webkit-background-clip: text;
+        animation: ran 10s linear infinite;
+    }
+    .c-pink {
+
+        font-family: '仿宋';
+        color: #8c888b;
+        background: -webkit-linear-gradient(45deg, #d83afe, #fb351e, #fed02d, #ee9889, #bed5f5);
+                    -moz-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+                    -ms-linear-gradient(45 deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
+        color: transparent;
+        -webkit-background-clip: text;
+        animation: ran 10s linear infinite;
+    }
+
+    .hsl-1{
+        color: hsl(10,30%,60%);
+    }
+
+    .c-st{
+        font-family: '仿宋';
+        color: #8c888b;
+    }
+    .tags :hover{
+        cursor: pointer;
+        color: #d1ff0c;
+    }
 </style>
 {% endblock %}
 
@@ -25,14 +59,19 @@
         {% for blog in blogs %}
         <!--<article class="uk-article">-->
         <div class="panel panel-self mt-5 radius">
-            <div class="panel-header c-white"><a style="text-decoration: none;" href="/blog/{{ blog.id }}"><i
-                    class="icon Hui-iconfont Hui-iconfont-tags"></i> {{ blog.name }}</a></div>
+            <div class="panel-header c-white"><a class="link_a" style="text-decoration: none;" data-var="/blog/{{ blog.id }}">
+                <span class="hsl-1">{{ blog.name }}</span></a></div>
             <div class="panel-body"><p class="c-999 f-12">发表于{{ blog.created_at|datetime }}
-                <p>
+                <p class="c-st">{{ blog.summary|safe }}</p>
+                <p class="c-pink">
+                    <a class="c-pink link_a" data-var="/blog/{{ blog.id }}" style="text-decoration: none">
+                        <i class="icon Hui-iconfont Hui-iconfont-yuedu"></i>
+                        继续阅读
+                    </a>
+                </p>
+                <p class="tags" data-var="{{blog.tags}}"></p>
+            </div>
 
-                <p>{{ blog.summary }}</p>
-                <p class="c-orange"><a href="/blog/{{ blog.id }}"><i class="icon Hui-iconfont Hui-iconfont-yanjing"></i>
-                    继续阅读</a></p></div>
         </div>
 
         {% endfor %}
@@ -86,3 +125,30 @@
 
 {% endblock %}
 
+{% block js %}
+<script type="text/javascript">
+    $('.tags').each(function () {
+        var tag_arr = $(this).attr('data-var');
+        var arr = tag_arr.split(',');
+        if(arr && arr.length && arr[0] != 'None'){
+            for(var i=0; i<arr.length; i++){
+                $(this).append('<span class="label label-success radius"><i '
+                    + 'class="icon Hui-iconfont Hui-iconfont-tags"></i> ' +arr[i] + '</span> ');
+
+            }
+        }else {
+          $(this).append('<span class="label label-success radius"><i '
+                +'class="icon Hui-iconfont Hui-iconfont-tags"></i> 未分类</span>');
+        }
+
+    })
+
+    $('a.link_a').on('click', function () {
+        var id_link = $(this).attr('data-var')
+        if(id_link){
+            location.assign(id_link);
+        }
+    })
+
+</script>
+{% endblock %}
