@@ -4,12 +4,370 @@
 
 {% block css %}
 
+    <link rel="stylesheet" href="/static/ui/time/css/style.min.css">
+    <link id="schemer" rel="stylesheet" href="">
+
+	<link rel="stylesheet" href="/static/ui/time/css/demo.min.css">
+	<link rel="stylesheet" href="/static/ui/time/css/font-awesome.min.css">
+<style type="text/css">
+
+    .containBox {
+        background-image: url("/static/ui/time/images/grey_wash_wall.jpg");
+    }
+    .foot-top{
+        display: none;
+    }
+    
+</style>
+
 {% endblock %}
 
 {% block content %}
-<div class="c-orange text-c f-28" style="position: absolute;top: 50%;width: inherit">
+<!--<div class="col-md-11 col-sm-11 c-orange text-c f-28" style="position: absolute;top: 50%;">
 
     <span> 敬请期待...</span>
-</div>
+</div>-->
 
+<div class="container" style="width: 1200px">
+    <div class="header">
+
+        <h1>炫彩空间</h1>
+        <h3>色彩缤纷，灿烂无比！</h3>
+        <!--<p>颜色主题</p>
+        <ul class="color_scheme">
+            <li data-title="scheme1">蓝</li>
+            &lt;!&ndash;<li data-title="scheme2">蓝+</li>&ndash;&gt;
+            <li data-title="scheme3">黄</li>
+            <li data-title="scheme4">橙</li>
+            <li data-title="scheme5">紫</li>
+            &lt;!&ndash;<li data-title="scheme6">紫-</li>&ndash;&gt;
+            <li data-title="scheme7">红</li>
+            &lt;!&ndash;<li data-title="scheme8">8</li>
+            <li data-title="scheme9">9</li>&ndash;&gt;
+        </ul>-->
+        <div class="arrow bounce">
+            <i class="fa fa-chevron-down fa-lg"></i>
+
+        </div>
+        <!-- 			<p>Themes</p>
+                    <ul class="mythemes">
+                        <li class="mytheme1"></li>
+                        <li class="mytheme2"></li>
+                        <li class="mytheme3"></li>
+                    </ul>-->
+    </div>
+
+    <div id="instructions_container" style="display: block;top: 60px;">
+
+        使用<strong>'J'</strong> and <strong>'K'</strong> 快捷浏览<!-- or 点击 <strong>Arrows.</strong>-->
+    </div><!-- of #instructions_container -->
+
+
+    <!-- Main My timeline product code start here -->
+    <div id="timeline_container">
+        <header style="position: relative; top: 0px;">
+            <nav>
+                <ul id="main_nav">
+                    <li class="all icon-all active" data-title="all" title="所有"></li>
+                    <li class="icon-address active" data-title="life" title="生活">
+                    </li>
+                    <li class="icon-graduation-cap active" data-title="education" title="学习">
+                    </li>
+                    <li class="icon-briefcase active" data-title="work" title="工作">
+                    </li>
+                    <li class="icon-user active" data-title="user" title="信息">
+                    </li>
+                </ul> <!-- end of #main_nav -->
+                <ul id="nav_ctrl" style="color: rgb(3, 169, 244);">
+                    <li class="icon-up-open" data-title="Next" title="上一节点">
+                    </li>
+                    <li class="icon-down-open" data-title="Previous" title="下一节点">
+                    </li>
+                </ul> <!-- end of #nav_ctrl -->
+            </nav> <!-- end of nav -->
+        </header> <!-- end of Header -->
+
+        <div class="header-image">
+            <figure id="user_image" style="border-color: rgb(3, 169, 244);">
+                <img style="max-height: 180px;max-width: 180px" src="/static/ui/img/thead.png" title="The User" alt="Mahesh Langote">
+            </figure>
+            <h1>Li Wei <br><span>time history record</span></h1>
+        </div> <!-- end of avtar circle header -->
+
+        <ul id="myevents">
+            <!-- -->
+
+            <li class="user_event">
+                <div class="event_icn icon-user"></div>
+                <div class="event_content">
+                    <h3>拼搏</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;目标，目标，目标；能不能实现一个。
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2018/02</p>
+                </div>
+            </li>
+
+            <li class="life_event">
+                <div class="event_icn icon-address"></div>
+                <div class="event_content">
+                    <h3>年假</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;没有了寒假的我，至今也没有体验过一次年假
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2018/02</p>
+                </div>
+            </li>
+
+            <li class="education_event">
+                <div class="event_icn icon-graduation-cap"></div>
+                <div class="event_content">
+                    <h3>上线</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;一场很不友好的体验，Linux小白表示很打老壳。上线后的残缺品还有很多地方需要修补QAQ。<br>
+                        
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2018/01</p>
+                </div>
+            </li>
+
+            <li class="work_event">
+                <div class="event_icn icon-briefcase"></div>
+                <div class="event_content">
+                    <h3>工作之余</h3>
+                    <ul>
+                        <li><p> · 乏味的工作总是那么无聊</p></li>
+                        <li><p> · XXX需求，XXX前人的硕果</p></li>
+                        <li><p> · 继续拓展，开始建站</p></li>
+                        <li><p> · 起初采用了WordPress，但阿里云老提醒<br>&nbsp;DDos漏洞安全</p></li>
+                        <li><p> · 将就用了一段时间，自己一个键一个键敲出来了</p></li>
+                    </ul>
+                </div>
+                <div class="event_date">
+                    <p>2017/09-2017/11</p>
+                </div>
+            </li>
+
+            <li class="work_event">
+                <div class="event_icn icon-briefcase"></div>
+                <div class="event_content">
+                    <h3>不能浪费了这点技能</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;还是又找了份IT工作--上海xxxx科技有限公司；<br>
+                        好像是做银行外包的，听起来牛逼轰轰的样子，去看看得。
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2017/09-2018/??</p>
+                </div>
+            </li>
+
+            <li class="life_event">
+                <div class="event_icn icon-address"></div>
+                <div class="event_content">
+                    <h3>自由职业者</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;又兼职了一个月的小工...
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2017/09</p>
+                </div>
+            </li>
+
+            <li class="work_event">
+                <div class="event_icn icon-briefcase"></div>
+                <div class="event_content">
+                    <h3>试用期</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;云南XXXX数码科技有限公司<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;总算体验了把互联网化的国企，总的来说比我第一家差太多了（同事以及工作氛围,及个别较差而已^_^）；
+                        试用期，每个月都有一次小会考核。最后签转正合同，拒绝了...
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2017/05-2017/08</p>
+                </div>
+            </li>
+
+            <li class="work_event">
+                <div class="event_icn icon-briefcase"></div>
+                <div class="event_content">
+                    <h3>国企</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;兼职了小半月的临时工，还是去找份本职工作吧。
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2017/05</p>
+                </div>
+            </li>
+
+            <li class="life_event">
+                <div class="event_icn icon-address"></div>
+                <div class="event_content">
+                    <h3>到达</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;一到就被叫去拆除违章建筑。。。打了个滴滴就去了。
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2017/04</p>
+                </div>
+            </li>
+
+            <li class="life_event">
+                <div class="event_icn icon-address"></div>
+                <div class="event_content">
+                    <h3>换地方</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;人是铁，饭是刚。总要生活的嘛，还是去找份糊口的工作先。<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;我靠，这个时间怎么投个简历要等好久才回，难道我简历OUT了┌(。Д。)┐<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;最后还是面上了一家，但是我没有去...<br>
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;在这里有许多美好的回忆，生活、工作、以及...<br>
+                        再见-成都,转战-昆明。
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2017/04 </p>
+                </div>
+            </li>
+
+            <li class="user_event">
+                <div class="event_icn icon-user"></div>
+                <div class="event_content">
+                    <h3>心血来潮</h3>
+                    <ul>
+                        <li><p> ·&nbsp;准备考公务员</p></li>
+                        <li><p> ·&nbsp;买了些资料,花了小百块</p></li>
+                        <li><p> ·&nbsp;至今未看完ε(┬┬﹏┬┬)3</p></li>
+
+                    </ul>
+                </div>
+                <div class="event_date">
+                    <p>2017/03-2017/04</p>
+                </div>
+            </li>
+
+            <li class="work_event">
+                <div class="event_icn icon-briefcase"></div>
+                <div class="event_content">
+                    <h3>入职当天 辞职</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;原因记不得了，90后老人，记忆力衰退的快。
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2016/03</p>
+                </div>
+            </li>
+
+            <li class="life_event">
+                <div class="event_icn icon-address"></div>
+                <div class="event_content">
+                    <h3>新工作</h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;都说年后 是跳槽高峰期，随大流跟了一波，先找好了下家再辞的工作。<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;上家12楼，下家就在8楼o(╯□╰)o。
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2017/02 </p>
+                </div>
+            </li>
+
+            <li class="user_event">
+                <div class="event_icn icon-user"></div>
+                <div class="event_content">
+                    <h3>不断拓展知识</h3>
+                    <ul>
+                        <li><p>工作期间不断接触新知识领域</p></li>
+                        <li><p>1. Maven</p></li>
+                        <li><p>2. Dubbo</p></li>
+                        <li><p>3. Python</p></li>
+                        <li><p>4. ElasticSearch</p></li>
+                        <li><p>5. Redis</p></li>
+                        <li><p>5. Mongodb</p></li>
+                    </ul>
+                </div>
+                <div class="event_date">
+                    <p>2016/03-2017/02</p>
+                </div>
+            </li>
+
+            <li class="work_event">
+                <div class="event_icn icon-briefcase"></div>
+                <div class="event_content">
+                    <h3>工作ING</h3>
+                    <ul>
+                        <li><p> · 学校里面的知识，Earn money (p≧w≦q)</p></li>
+                        <li><p> · 在这里与学校环境相当接近</p></li>
+                        <li><p> · 任务不是很多，我有很多空余时间填充自己</p></li>
+                    </ul>
+                </div>
+                <div class="event_date">
+                    <p>2016/03-2017-02</p>
+                </div>
+            </li>
+
+
+            <li class="work_event">
+                <div class="event_icn icon-briefcase"></div>
+                <div class="event_content">
+                    <h3>找工作</h3>
+                    <ul>
+                        <li><p> + 面临着一波毕业季的到来</p></li>
+                        <li><p> + 都没有面试经验，投了三个，去了两个</p></li>
+                        <li><p> + 面上两家公司，选择了游戏平台的那家(≧∇≦)ﾉ</p></li>
+                    </ul>
+                </div>
+                <div class="event_date">
+                    <p>2016/03</p>
+                </div>
+            </li>
+
+            <li class="education_event">
+                <div class="event_icn icon-graduation-cap"></div>
+                <div class="event_content">
+                    <h3><span>大学生活</span><img class="avatar size-M radius mb-5" src="/static/ui/img/head/ih_10.png"></h3>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;当时生活过得可以算是相当滋润，有事没事，看看电影，日常与室友开黑。
+                    </p>
+                </div>
+                <div class="event_date">
+                    <p>2012/09-2016/02</p>
+                </div>
+            </li>
+
+        </ul> <!-- end of #Myevent  -->
+    </div>    <!-- #timeline_container -->
+    <!-- Main My timeline product code End here -->
+
+</div> <!-- end of container class -->
+
+
+{% endblock %}
+
+{% block js %}
+    <script src="/static/ui/time/js/main.min.js"></script>
+	<script src="/static/ui/time/js/demo.min.js"></script>
+    <script type="text/javascript">
+        $('.arrow i').on('click', function(){
+            $("html, body").animate({
+            scrollTop: $("#timeline_container").offset().top },
+            {duration: 500,easing: "swing"}
+            );
+            $('.arrow i').removeClass('fa-chevron-up')
+                    $('.arrow i').addClass('fa-chevron-down')
+        });
+
+
+    </script>
 {% endblock %}

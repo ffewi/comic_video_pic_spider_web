@@ -208,10 +208,11 @@
 </head>
 
 <body ontouchstart>
+<!--  -->
 <div class="sideBox">
     <ul id="minTab" class="nav navbar-nav pt-20">
         <li><a name="index" href="javascript:;">首页</a></li>
-        <li><a name="notes" href="javascript:;">日志</a></li>
+        <li><a name="notes" href="javascript:;">笔记</a></li>
         <li><a name="mZiTu" href="javascript:;">Mzitu</a></li>
         <li><a name="manHuaTai" href="javascript:;">MHuaTai</a></li>
         <li><a name="me" href="javascript:;">关于我</a></li>
@@ -238,7 +239,7 @@
                         </li>
                         <li>
                             <a name="notes" href="javascript:;">
-                                日志</a></li>
+                                笔记</a></li>
                         <li>
                             <a name="mZiTu" href="javascript:;">
                                 Mzitu</a></li>
@@ -280,8 +281,8 @@
     <!-- 内容区域 -->
 
     <!-- 内容区域结束 -->
-    <!-- -->
-    <div class="container" style="min-height: 600px ;overflow: auto">
+    <!-- min-height: 600px ;-->
+    <div class="container autoFit" style="overflow: auto">
         <!---->
         {% block content %}
         {% endblock %}
@@ -290,14 +291,14 @@
 
 </div>
 
-<div style="height: 20px;background-color: #333;"></div>
+<div class="foot-top" style="height: 20px;background-color: #333;"></div>
 <footer class="footer mt-10" style="background-color: #333;">
     <div class="container-fluid">
-        <nav><span>本站资源</span></nav>
-        <nav><a href="javascript:void(0)" target="_blank">廖老师Python教程</a> <span class="pipe">|</span> <a
-                href="javascript:void(0)" target="_blank">MZiTu</a> <span
-                class="pipe">|</span> <a href="javascript:void(0)" target="_blank">MHuaTai</a></nav>
-        <p>Copyright &copy;2017 ffewi.com All Rights Reserved. <br>
+        <nav><span>༺༺本站技术 ✚ 网络资源༻༻</span></nav>
+        <nav><a href="javascript:void(0)" target="_blank">筑基-Python</a> <span class="pipe">|</span> <a
+                href="javascript:void(0)" target="_blank">Reffer-MZiTu</a> <span
+                class="pipe">|</span> <a href="javascript:void(0)" target="_blank">JS-MHuaTai</a></nav>
+        <p>Copyright &copy;2017-2018 ffewi.com All Rights Reserved. <br>
             <a href="javascript:void(0)" target="_blank" rel="nofollow">托管于阿里云</a><br>
         </p>
     </div>
@@ -380,11 +381,11 @@
 
     $(function () {
         // body...
-        $.Huitotop();
-
-
         var _bodyHeight = $(window).height();
         var _doch = $(document).height();
+        $('.autoFit').css('min-height', (_bodyHeight - 44) + 'px');
+        $.Huitotop();
+
         //设置 banner 页。。
         // $(".containBox").height(_bodyHeight);
         /*左右滑动菜单*/

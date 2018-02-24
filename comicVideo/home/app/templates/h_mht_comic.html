@@ -50,12 +50,14 @@
 
 {% block content %}
 <div class="container-fluid">
-
+    <div class="col-md-9 col-sm-9-3 t-15 text-c f-26 mt-10">
+        <span style="display: block;border-bottom: dashed #333 2px">《{{comic_info.name}}》</span>
+    </div>
     <!-- 章节信息-->
     <div class="col-md-9 mt-15" id="section_area">
 
         {% for s in comic_section %}
-        <div class="album-item col-md-2 mt-5" ><a style="text-decoration: none" name="{{s.id}}" title="{{s.title}}">
+        <div class="album-item col-md-2 col-sm-2 mt-5" ><a style="text-decoration: none" name="{{s.id}}" title="{{s.title}}">
             <div class="album-img">
                 <img  class="waitLoad d-wh"
                 {% if s.href %}
@@ -76,7 +78,7 @@
     </div>
     <!-- 章节信息 END-->
     <!-- 漫画信息 -->
-    <div class="col-md-3 radius" id="comic_area">
+    <div class="col-md-3  visible-lg radius" id="comic_area">
         <div class="col-md-12 mt-10" style="position: fixed;top:50px">
             <div class="comic_img" style="margin:0 auto; overflow:hidden">
                 <ul class="travel-pic">

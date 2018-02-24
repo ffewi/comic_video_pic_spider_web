@@ -531,6 +531,8 @@ def mzt_pic_group(request, *, thread_count=1, trans_id=next_id()):
     # 线程监控
     monitor_thread = []
     for i in range(0, thread_count):
+        # if i != 10:
+        #     continue
         start = i * size
         end = (i + 1) * size
         if start > len_all:

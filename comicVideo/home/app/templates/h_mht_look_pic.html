@@ -52,8 +52,8 @@
 <div class="container-fluid">
 
     <!-- 章节图片信息-->
-    <div class="col-md-9 mt-15" id="section_area">
-        <div class="col-md-12 cl">
+    <div class="col-md-9 col-sm-12 mt-15" id="section_area">
+        <div class="col-md-12 col-sm-12 cl">
             <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>当前位置： <a class="maincolor link-url" data-url="/mht/comic/{{comic_info.index_id}}/info.html">{{comic_info.name}}</a><span
                     class="c-666 en">&gt;</span>{{section_info.title}}</nav>
         </div>
@@ -69,7 +69,7 @@
     </div>
     <!-- 章节信息 END-->
     <!-- 漫画信息 -->
-    <div class="col-md-3 radius" id="comic_area">
+    <div class="col-md-3 visible-lg radius" id="comic_area">
         <div class="col-md-12 mt-10" style="position: fixed;top:50px">
             <div class="comic_img" style="margin:0 auto; overflow:hidden">
                 <ul class="travel-pic">
@@ -153,7 +153,7 @@
             var scrollTop = $(this).scrollTop();
             var scrollHeight = $(document).height();
             var windowHeight = $(this).height();
-            if (scrollTop + windowHeight == scrollHeight) {
+            if (scrollTop + windowHeight >= scrollHeight-1) {
                 // 此处是滚动条到底部时候触发的事件，在这里写要加载的数据，或者是拉动滚动条的操作
     //            console.log('此处预留更多精彩')
                 if(index <= pic_len){

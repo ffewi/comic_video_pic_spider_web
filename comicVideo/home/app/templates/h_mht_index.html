@@ -20,7 +20,7 @@
 {% block content %}
 <div class="container-fluid">
     {%  for comic in comic_index %}
-    <div class="col-md-3 radius mt-10">
+    <div class="col-md-3 col-sm-4 radius mt-10">
         <div class="comic_img" style="margin:0 auto; overflow:hidden">
             <ul class="travel-pic">
                 <li><a>
@@ -52,7 +52,7 @@
 
 
     {% endfor %}
-    <div class="col-md-12">
+    <div class="col-md-12 col-sm-12">
     {{ pagination('/?page=', page) }}</div>
 
 </div>

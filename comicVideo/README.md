@@ -29,3 +29,8 @@ pip3 install watchdog
 ## 需要安装的类库
 
 pip install MySQL-python
+
+
+# 发布
+yum install python-setuptools
+easy_install supervisor

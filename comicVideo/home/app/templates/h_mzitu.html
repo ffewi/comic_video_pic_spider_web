@@ -99,9 +99,9 @@
 
     </div>
     {% for p in pictures %}
-    <div class="col-md-3 mt-10">
+    <div class="col-md-3 col-sm-4 mt-10">
 
-        <div class="col-md-12 cl-plr sd-10 radius">
+        <div class="col-md-12 col-sm-12 cl-plr sd-10 radius">
 
             <ul class="travel-pic">
                 <li><a>
@@ -113,15 +113,15 @@
                 </li>
 
             </ul>
-            <div class="col-md-12 mt-5">
-                <div class="col-md-6" style="padding-left: 0px"><i
+            <div class="col-md-12 col-sm-12 mt-5">
+                <div class="col-md-6 col-sm-6" style="padding-left: 0px"><i
                         class="icon Hui-iconfont Hui-iconfont-fenlei f-14 c-red" title="类型：{{p.pic_type}}"></i>
                     {{p.pic_type}}
                 </div>
-                <div class="col-md-6"><i class="icon Hui-iconfont Hui-iconfont-yanjing f-14 c-orange"
+                <div class="col-md-6 col-sm-6"><i class="icon Hui-iconfont Hui-iconfont-yanjing f-14 c-orange"
                                          title="浏览量：{{p.views|views}}"></i> {{p.views|views}}
                 </div>
-                <div class="col-md-12" style="padding-left: 0px"><i
+                <div class="col-md-12 col-sm-12 " style="padding-left: 0px"><i
                         class="icon Hui-iconfont Hui-iconfont-shijian f-14 c-orange"
                         title="更新时间: {{p.created_at|datetime}}"></i> <span
                         class="c-999">{{p.created_at|datetime}}</span></div>
@@ -131,12 +131,12 @@
         </div>
     </div>
     {% endfor %}
-    <div class="col-md-12 cl mt-20">
+    <div class="col-md-12 col-sm-12 cl mt-20">
         {{ pagination('/?page=', page) }}
     </div>
     {%else%}
     <div class="col-md-12 mt-10 radius" style="min-height: 180px;">
-        <div class="c-orange text-c f-28" style="position: absolute;top: 50%;width: inherit">
+        <div class="col-md-12 col-sm-12 c-orange text-c f-28" style="position: absolute;top: 50%;">
             <span> 登录之后，体验更多精彩...</span>
         </div>
 
