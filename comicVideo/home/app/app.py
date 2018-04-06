@@ -219,7 +219,7 @@ def init(loop):
     # init_jinja2(app, filters=dict())
     add_routes(app, 'handlers')
     add_static(app)
-    srv = yield from loop.create_server(app.make_handler(), '127.0.0.1', 9001)
+    srv = yield from loop.create_server(app.make_handler(), '192.168.1.41', 9001)
     logging.info('server started at http://127.0.0.1:9001...')
     finish_time = time.time()
     logging.info('启动耗时：%s ms' % int((finish_time - start_time)*1000))

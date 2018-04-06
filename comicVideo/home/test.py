@@ -18,7 +18,7 @@
 # print(bstr)
 # a = {'1':None,'2':'22'}
 # print(tuple(a.values()))
-# import time
+import time
 # da = {}
 # da['ddd'] = {'data':{},'ttl':time.time()}
 # da['ddd1'] = {'data':{},'ttl':time.time()+10}
@@ -39,11 +39,13 @@
 #
 # a = {'ii':1}
 # print('ii' in a)
-s = 123124324
-a = []
-while s != 0:
-    s3 = s % 1000
-    s = s // 1000
-    a.append(str(s3))
-a.reverse()
-print(','.join(a))
+# s = 123124324
+# a = []
+# while s != 0:
+#     s3 = s % 1000
+#     s = s // 1000
+#     a.append(str(s3))
+# a.reverse()
+# print(','.join(a))
+ss=time.strftime('%Y-%m-%d', time.localtime(time.time()))
+print(ss)
